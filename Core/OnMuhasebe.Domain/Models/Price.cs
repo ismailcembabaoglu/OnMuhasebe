@@ -10,7 +10,7 @@ namespace OnMuhasebe.Domain.Models
 {
     public class Price : BaseModel
     {
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         public Product Product { get; set; }
 
@@ -24,4 +24,5 @@ namespace OnMuhasebe.Domain.Models
 
         public bool IsDefault { get; set; }
     }
+    
 }
