@@ -10,6 +10,13 @@ namespace OnMuhasebe.Application.DTOs
 {
     public class BankDTO:BaseModelDTO
     {
-
+        public string AccountCode { get; set; }
+        public string AccountName { get; set; }
+        public string BankName { get; set; }
+        public string Branch { get; set; }
+        public string IbanNo { get; set; }
+        public string AccountNo { get; set; }
+        public string AuthName { get; set; }
+        public string AuthPhone { get; set; }
     }
 }

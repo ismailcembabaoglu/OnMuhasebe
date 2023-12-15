@@ -10,5 +10,7 @@ namespace OnMuhasebe.Application.DTOs
 {
     public class PaymentTypeDTO : BaseModelDTO
     {
+        public string PaymentTypeCode { get; set; }
+        public string PaymentTypeName { get; set; }
     }
 }

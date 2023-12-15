@@ -10,5 +10,6 @@ namespace OnMuhasebe.Application.DTOs
 {
     public class FastSaleGroupDTO : BaseModelDTO
     {
+        public string GroupName { get; set; }
     }
 }

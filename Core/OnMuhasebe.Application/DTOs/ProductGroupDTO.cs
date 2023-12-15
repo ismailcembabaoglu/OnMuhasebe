@@ -10,7 +10,6 @@ namespace OnMuhasebe.Application.DTOs
     public class ProductGroupDTO: BaseModelDTO
     {
         public string ProductGroupName { get; set; }
-        public ICollection<ProductDTO> Products { get; set; }
-        public ICollection<ProductUnderGroupDTO> ProductUnderGroups { get; set; }
+
     }
 }

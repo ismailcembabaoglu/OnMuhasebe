@@ -10,5 +10,16 @@ namespace OnMuhasebe.Application.DTOs
 {
     public class SafeBoxMotionDTO : BaseModelDTO
     {
+        public string VoucherCode { get; set; }
+        public SafeBoxMotionTypeDTO SafeBoxMotionType { get; set; }
+        public Guid SafeBoxId { get; set; }
+        public Guid PaymentTypeId { get; set; }
+        public Guid CustomerId { get; set; }
+        public decimal Price { get; set; }
+    }
+    public enum SafeBoxMotionTypeDTO
+    {
+        Deposit,
+        Withdrawal
     }
 }

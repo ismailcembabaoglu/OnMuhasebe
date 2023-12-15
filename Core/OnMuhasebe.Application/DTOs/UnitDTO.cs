@@ -10,5 +10,6 @@ namespace OnMuhasebe.Application.DTOs
 {
     public class UnitDTO : BaseModelDTO
     {
+        public string UnitName { get; set; }
     }
 }

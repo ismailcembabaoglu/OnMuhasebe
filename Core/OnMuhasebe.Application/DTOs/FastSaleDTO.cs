@@ -10,5 +10,7 @@ namespace OnMuhasebe.Application.DTOs
 {
     public class FastSaleDTO : BaseModelDTO
     {
+        public Guid FastSaleGroupId { get; set; }
+        public Guid ProductId { get; set; }
     }
 }

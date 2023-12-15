@@ -10,5 +10,10 @@ namespace OnMuhasebe.Application.DTOs
 {
     public class EmployeeMotionDTO : BaseModelDTO
     {
+        public Guid EmployeeId { get; set; }
+        public DateTime Period { get; set; }
+        public decimal PrimRatio { get; set; }
+        public decimal TotalAmount { get; set; }
+        public decimal MonthlySalary { get; set; }
     }
 }

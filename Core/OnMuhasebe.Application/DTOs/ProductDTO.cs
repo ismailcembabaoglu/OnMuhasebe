@@ -16,11 +16,8 @@ namespace OnMuhasebe.Application.DTOs
         public Guid ProductGroupId { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
-        public ICollection<SpecialCode> SpecialCodes { get; set; }
         public string GuaranteePeriod { get; set; }
         public string Producer { get; set; }
-        public ICollection<Price> Prices { get; set; }
-        public ICollection<ProductMotion> ProductMotions { get; set; }
         public string Photo { get; set; }
     }
 }
