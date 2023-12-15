@@ -37,7 +37,5 @@ namespace OnMuhasebe.Domain.Models
         public ICollection<SafeBox> SafeBoxes { get; set;}
         public ICollection<Voucher> Vouchers { get; set;}
 
-
-
     }
 }

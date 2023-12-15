@@ -9,8 +9,8 @@ namespace OnMuhasebe.Domain.Models
 {
     public class Voucher:BaseModel
     {
-        public string VousherCode { get; set; }
-        public Enum VousherType { get; set;}
+        public string VoucherCode { get; set; }
+        public Enum VoucherType { get; set;}
         public Guid CustomerId  { get; set; }
         public Customer Customer { get; set; }
         public string DocumentNo { get; set; }
