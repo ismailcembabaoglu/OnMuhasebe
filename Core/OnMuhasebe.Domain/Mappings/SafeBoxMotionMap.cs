@@ -13,7 +13,7 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<SafeBoxMotionMap> builder)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

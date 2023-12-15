@@ -13,7 +13,14 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<EmployeeMotion> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(em => em.Id);
+            builder.Property(em => em.EmployeeId).IsRequired();
+            builder.Property(em => em.Period).IsRequired();
+            builder.Property(em => em.PrimRatio).HasPrecision(18, 2).IsRequired();
+            builder.Property(em => em.TotalAmount).HasPrecision(18, 2).IsRequired();
+            builder.Property(em => em.MonthlySalary).HasPrecision(18, 2).IsRequired();
+
+            builder.HasOne(em => em.Employee).WithMany(e => e.EmployeeMotions).HasForeignKey(em => em.EmployeeId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

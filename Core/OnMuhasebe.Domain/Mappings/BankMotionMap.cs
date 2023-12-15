@@ -13,7 +13,16 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<BankMotion> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(bm => bm.Id);
+            builder.Property(bm => bm.VoucherCode).HasMaxLength(255);
+            builder.Property(bm => bm.BankMotionType).IsRequired();
+            builder.Property(bm => bm.BankId).IsRequired();
+            builder.Property(bm => bm.CustomerId).IsRequired();
+            builder.Property(bm => bm.Price).HasPrecision(18, 2).IsRequired();
+
+            builder.HasOne(bm => bm.Bank).WithMany(b => b.BankMotions).HasForeignKey(bm => bm.BankId).OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(bm => bm.Customer).WithMany(c => c.BankMotions).HasForeignKey(bm => bm.CustomerId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

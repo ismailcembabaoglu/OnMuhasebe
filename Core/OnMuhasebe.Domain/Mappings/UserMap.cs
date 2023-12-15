@@ -13,7 +13,12 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(u => u.Id);
+            builder.Property(u => u.FirstName).HasMaxLength(50).IsRequired();
+            builder.Property(u => u.LastName).HasMaxLength(50).IsRequired();
+            builder.Property(u => u.Email).HasMaxLength(100).IsRequired();
+            builder.Property(u => u.Password).HasMaxLength(255).IsRequired();
+            builder.Property(u => u.IsActive).IsRequired();
         }
     }
 }

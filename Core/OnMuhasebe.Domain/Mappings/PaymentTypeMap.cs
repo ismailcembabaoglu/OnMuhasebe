@@ -13,7 +13,11 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<PaymentType> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(pt => pt.Id);
+            builder.Property(pt => pt.PaymentTypeCode).HasMaxLength(50).IsRequired();
+            builder.Property(pt => pt.PaymentTypeName).HasMaxLength(255).IsRequired();
+
+            builder.HasMany(pt => pt.SafeBoxMotions).WithOne(sb => sb.PaymentType).HasForeignKey(sb => sb.PaymentTypeId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -13,7 +13,8 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<FastSaleGroup> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(fsg => fsg.Id);
+            builder.Property(fsg => fsg.GroupName).HasMaxLength(255).IsRequired();
         }
     }
 }

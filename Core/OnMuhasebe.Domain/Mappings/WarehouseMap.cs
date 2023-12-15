@@ -13,7 +13,20 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(w => w.Id);
+
+            builder.Property(w => w.WarehouseName).HasMaxLength(255).IsRequired();
+            builder.Property(w => w.WarehouseCode).HasMaxLength(50).IsRequired();
+            builder.Property(w => w.AuthCode).HasMaxLength(50);
+            builder.Property(w => w.AuthName).HasMaxLength(255);
+            builder.Property(w => w.Country).HasMaxLength(100);
+            builder.Property(w => w.City).HasMaxLength(100);
+            builder.Property(w => w.District).HasMaxLength(100);
+            builder.Property(w => w.Address).HasMaxLength(500);
+            builder.Property(w => w.Phone).HasMaxLength(20);
+
+            builder.HasMany(w => w.ProductMotions).WithOne(pm => pm.Warehouse).HasForeignKey(pm => pm.WarehouseId).OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
