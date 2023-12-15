@@ -15,8 +15,8 @@ namespace OnMuhasebe.Domain.Models
         public bool IsActive { get; set; }
         public string ProductNumber { get; set; }
         public string Barcode { get; set; }
-       // public Guid UnitId { get; set; }
-       // public Unit Unit { get; set; }
+        public Guid UnitId { get; set; }
+        public Unit Unit { get; set; }
 
         public Guid ProductGroupId { get; set; }
         public ProductGroup ProductGroup { get; set; }
