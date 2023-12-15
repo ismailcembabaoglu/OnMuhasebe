@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Context\" />
     <Folder Include="CustomExceptions\" />
     <Folder Include="Extensions\" />
     <Folder Include="ResponseModels\" />

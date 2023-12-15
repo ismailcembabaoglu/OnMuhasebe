@@ -1,0 +1,26 @@
+﻿using OnMuhasebe.Application.DTOs.BaseModelDTOs;
+using OnMuhasebe.Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OnMuhasebe.Application.DTOs
+{
+    public class ProductDTO: BaseModelDTO
+    {
+        public bool IsActive { get; set; }
+        public string ProductNumber { get; set; }
+        public string Barcode { get; set; }
+        public Guid ProductGroupId { get; set; }
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public ICollection<SpecialCode> SpecialCodes { get; set; }
+        public string GuaranteePeriod { get; set; }
+        public string Producer { get; set; }
+        public ICollection<Price> Prices { get; set; }
+        public ICollection<ProductMotion> ProductMotions { get; set; }
+        public string Photo { get; set; }
+    }
+}
