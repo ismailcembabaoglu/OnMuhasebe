@@ -8,5 +8,9 @@ namespace OnMuhasebe.Domain.Enums
 {
     public enum DiscountType
     {
+        Percentage,   // Yüzde indirim
+        Amount,       // Miktar indirim
+        Gift,         // Hediye ürün veya hizmet
+        SpecialOffer  // Özel teklif
     }
 }

@@ -8,5 +8,11 @@ namespace OnMuhasebe.Domain.Enums
 {
     public enum PriceType
     {
+        Cash,           // Nakit ödeme
+        CreditCard,     // Kredi kartı ile ödeme
+        BankTransfer,   // Banka havalesi veya EFT
+        Check,          // Çekle ödeme
+        VirtualCard,    // Sanal kartla ödeme
+        Other           // Diğer ödeme türleri
     }
 }

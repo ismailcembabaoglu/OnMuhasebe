@@ -8,6 +8,10 @@ namespace OnMuhasebe.Domain.Enums
 {
     public enum BankMotionType
     {
-
+        Deposit,          // Para yatırma
+        Withdrawal,       // Para çekme
+        TransferIn,       // Transfer alma
+        TransferOut,      // Transfer gönderme
+        Other             // Diğer işlemler
     }
 }
