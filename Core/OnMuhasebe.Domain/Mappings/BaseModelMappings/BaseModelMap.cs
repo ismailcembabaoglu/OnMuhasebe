@@ -9,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings.BaseModelMappings
 {
-    public class BaseModelMap : IEntityTypeConfiguration<BaseModel>
+    public class BaseModelMap: BaseModel
     {
         public void Configure(EntityTypeBuilder<BaseModel> builder)
         {
-            builder.Property(c => c.Id);
+            builder.HasKey(b => b.Id);
+            builder.Property(b => b.CreatedAt);
+            builder.Property(b => b.UpdatedAt);
+            builder.Property(b => b.CreatedUser);
+            builder.Property(b => b.UpdatedUser);
+            builder.Property(b => b.IsDeleted);
+            builder.Property(b => b.Description);
         }
 
     }

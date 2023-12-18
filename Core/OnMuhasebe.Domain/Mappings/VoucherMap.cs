@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnMuhasebe.Domain.Models;
+using OnMuhasebe.Domain.Mappings.BaseModelMappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,10 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class VoucherMap : IEntityTypeConfiguration<Voucher>
+    public class VoucherMap : BaseModelMap, IEntityTypeConfiguration<Voucher>
     {
         public void Configure(EntityTypeBuilder<Voucher> builder)
         {
-            builder.HasKey(v => v.Id);
-
             builder.Property(v => v.VoucherCode).HasMaxLength(50).IsRequired();
             builder.Property(v => v.VoucherType).IsRequired(); // Eğer VoucherType Enum ise tipini belirtin
             builder.Property(v => v.CustomerId).IsRequired();

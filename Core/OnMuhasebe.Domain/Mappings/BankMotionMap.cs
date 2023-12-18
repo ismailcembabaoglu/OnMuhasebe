@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnMuhasebe.Domain.Models;
+using OnMuhasebe.Domain.Mappings.BaseModelMappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class BankMotionMap : IEntityTypeConfiguration<BankMotion>
+    public class BankMotionMap : BaseModelMap, IEntityTypeConfiguration<BankMotion>
     {
         public void Configure(EntityTypeBuilder<BankMotion> builder)
         {
-            builder.HasKey(bm => bm.Id);
             builder.Property(bm => bm.VoucherCode).HasMaxLength(255);
             builder.Property(bm => bm.BankMotionType).IsRequired();
             builder.Property(bm => bm.BankId).IsRequired();

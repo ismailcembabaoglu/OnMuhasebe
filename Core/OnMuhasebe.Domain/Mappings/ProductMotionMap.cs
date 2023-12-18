@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnMuhasebe.Domain.Models;
+using OnMuhasebe.Domain.Mappings.BaseModelMappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class ProductMotionMap : IEntityTypeConfiguration<ProductMotion>
+    public class ProductMotionMap : BaseModelMap, IEntityTypeConfiguration<ProductMotion>
     {
         public void Configure(EntityTypeBuilder<ProductMotion> builder)
         {
-            builder.HasKey(pm => pm.Id);
 
             builder.Property(pm => pm.VoucherCode).HasMaxLength(255);
             builder.Property(pm => pm.MotionType).IsRequired();

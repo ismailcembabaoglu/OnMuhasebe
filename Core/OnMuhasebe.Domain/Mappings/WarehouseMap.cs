@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnMuhasebe.Domain.Models;
+using OnMuhasebe.Domain.Mappings.BaseModelMappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class WarehouseMap : IEntityTypeConfiguration<Warehouse>
+    public class WarehouseMap : BaseModelMap, IEntityTypeConfiguration<Warehouse>
     {
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
-            builder.HasKey(w => w.Id);
 
             builder.Property(w => w.WarehouseName).HasMaxLength(255).IsRequired();
             builder.Property(w => w.WarehouseCode).HasMaxLength(50).IsRequired();

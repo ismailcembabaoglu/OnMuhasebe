@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnMuhasebe.Domain.Models;
+using OnMuhasebe.Domain.Mappings.BaseModelMappings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class EmployeeMap : IEntityTypeConfiguration<Employee>
+    public class EmployeeMap : BaseModelMap, IEntityTypeConfiguration<Employee>
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            builder.HasKey(e => e.Id);
             builder.Property(e => e.IsWork).IsRequired();
             builder.Property(e => e.EmployeeTitle).HasMaxLength(50);
             builder.Property(e => e.EmployeeCode).HasMaxLength(20).IsRequired();
