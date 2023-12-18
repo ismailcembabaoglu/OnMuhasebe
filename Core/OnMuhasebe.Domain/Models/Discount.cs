@@ -1,4 +1,5 @@
-﻿using OnMuhasebe.Domain.Models.BaseModels;
+﻿using OnMuhasebe.Domain.Enums;
+using OnMuhasebe.Domain.Models.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace OnMuhasebe.Domain.Models
     {
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
-        public Enum DiscountType { get; set; }
+        public DiscountType DiscountType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Decimal DiscountRatio { get; set; }
     }
+
+
 }

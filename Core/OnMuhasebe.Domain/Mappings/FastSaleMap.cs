@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class FastSaleMap : IEntityTypeConfiguration<FastSaleMap>
+    public class FastSaleMap : IEntityTypeConfiguration<FastSale>
     {
-        public void Configure(EntityTypeBuilder<FastSaleMap> builder)
+        public void Configure(EntityTypeBuilder<FastSale> builder)
         {
 
         }

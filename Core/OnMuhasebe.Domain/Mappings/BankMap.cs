@@ -18,13 +18,12 @@ namespace OnMuhasebe.Domain.Mappings
             builder.Property(b => b.AccountName).HasMaxLength(100).IsRequired();
             builder.Property(b => b.BankName).HasMaxLength(100).IsRequired();
             builder.Property(b => b.Branch).HasMaxLength(100);
-            builder.Property(b => b.IbanNo).HasMaxLength(26).IsRequired();
+            builder.Property(b => b.IbanNo).HasMaxLength(26);
             builder.Property(b => b.AccountNo).HasMaxLength(20).IsRequired();
             builder.Property(b => b.AuthName).HasMaxLength(100);
             builder.Property(b => b.AuthPhone).HasMaxLength(20);
 
             builder.HasMany(b => b.BankMotions).WithOne(bm => bm.Bank).HasForeignKey(bm => bm.BankId).OnDelete(DeleteBehavior.Cascade);
-
             builder.HasMany(b => b.Vouchers).WithOne(v => v.Bank).HasForeignKey(v => v.BankId).OnDelete(DeleteBehavior.Cascade);
         }
     }

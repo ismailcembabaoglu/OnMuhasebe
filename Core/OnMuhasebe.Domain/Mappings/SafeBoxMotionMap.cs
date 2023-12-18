@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class SafeBoxMotionMap : IEntityTypeConfiguration<SafeBoxMotionMap>
+    public class SafeBoxMotionMap : IEntityTypeConfiguration<SafeBoxMotion>
     {
-        public void Configure(EntityTypeBuilder<SafeBoxMotionMap> builder)
+        public void Configure(EntityTypeBuilder<SafeBoxMotion> builder)
         {
 
         }

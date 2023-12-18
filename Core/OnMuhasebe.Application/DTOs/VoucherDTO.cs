@@ -1,5 +1,6 @@
 ﻿using OnMuhasebe.Application.DTOs.BaseModelDTOs;
 using OnMuhasebe.Domain.Models;
+using OnMuhasebe.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace OnMuhasebe.Application.DTOs
     public class VoucherDTO : BaseModelDTO
     {
         public string VoucherCode { get; set; }
-        public VoucherTypeDTO VoucherType { get; set; }
+        public VoucherType VoucherType { get; set; }
         public Guid CustomerId { get; set; }
         public string DocumentNo { get; set; }
         public decimal DiscountRate { get; set; }
@@ -21,9 +22,5 @@ namespace OnMuhasebe.Application.DTOs
         public decimal TotalPrice { get; set; }
         public Guid BankId { get; set; }
     }
-    public enum VoucherTypeDTO
-    {
-        Sales,
-        Purchase
-    }
+
 }

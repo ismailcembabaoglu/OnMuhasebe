@@ -1,4 +1,5 @@
-﻿using OnMuhasebe.Domain.Models.BaseModels;
+﻿using OnMuhasebe.Domain.Enums;
+using OnMuhasebe.Domain.Models.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ namespace OnMuhasebe.Domain.Models
 
         public Product Product { get; set; }
 
-        public Enum PriceType { get; set; }
+        public PriceType PriceType { get; set; }
 
         public decimal PriceValue { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using OnMuhasebe.Domain.Models.BaseModels;
+﻿using OnMuhasebe.Domain.Enums;
+using OnMuhasebe.Domain.Models.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace OnMuhasebe.Domain.Models
     public class ProductMotion:BaseModel
     {
         public string VoucherCode { get; set; }
-        public Enum MotionType { get; set; }
+        public MotionType MotionType { get; set; }
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
         public decimal Quantity { get; set; }

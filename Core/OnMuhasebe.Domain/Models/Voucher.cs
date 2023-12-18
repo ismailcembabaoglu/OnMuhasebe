@@ -1,4 +1,5 @@
-﻿using OnMuhasebe.Domain.Models.BaseModels;
+﻿using OnMuhasebe.Domain.Enums;
+using OnMuhasebe.Domain.Models.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace OnMuhasebe.Domain.Models
     public class Voucher:BaseModel
     {
         public string VoucherCode { get; set; }
-        public Enum VoucherType { get; set;}
+        public VoucherType VoucherType { get; set;}
         public Guid CustomerId  { get; set; }
         public Customer Customer { get; set; }
         public string DocumentNo { get; set; }

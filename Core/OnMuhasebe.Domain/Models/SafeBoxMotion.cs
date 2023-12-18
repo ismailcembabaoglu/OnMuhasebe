@@ -1,4 +1,5 @@
-﻿using OnMuhasebe.Domain.Models.BaseModels;
+﻿using OnMuhasebe.Domain.Enums;
+using OnMuhasebe.Domain.Models.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace OnMuhasebe.Domain.Models
     public class SafeBoxMotion:BaseModel
     {
         public string VoucherCode { get; set; }
-        public Enum SafeBoxMotionType { get; set;}
+        public SafeBoxMotionType SafeBoxMotionType { get; set;}
         public Guid SafeBoxId { get; set; }
         public SafeBox SafeBox { get; set;}
         public Guid PaymentTypeId { get; set; }

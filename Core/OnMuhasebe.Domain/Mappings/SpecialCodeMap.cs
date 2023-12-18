@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class SpecialCodeMap : IEntityTypeConfiguration<SpecialCodeMap>
+    public class SpecialCodeMap : IEntityTypeConfiguration<SpecialCode>
     {
-        public void Configure(EntityTypeBuilder<SpecialCodeMap> builder)
+        public void Configure(EntityTypeBuilder<SpecialCode> builder)
         {
 
         }

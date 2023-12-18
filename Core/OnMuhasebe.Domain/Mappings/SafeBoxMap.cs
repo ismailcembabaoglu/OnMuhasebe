@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class SafeBoxMap : IEntityTypeConfiguration<SafeBoxMap>
+    public class SafeBoxMap : IEntityTypeConfiguration<SafeBox>
     {
-        public void Configure(EntityTypeBuilder<SafeBoxMap> builder)
+        public void Configure(EntityTypeBuilder<SafeBox> builder)
         {
 
         }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class ProductGroupMap : IEntityTypeConfiguration<ProductGroupMap>
+    public class ProductGroupMap : IEntityTypeConfiguration<ProductGroup>
     {
-        public void Configure(EntityTypeBuilder<ProductGroupMap> builder)
+        public void Configure(EntityTypeBuilder<ProductGroup> builder)
         {
 
         }

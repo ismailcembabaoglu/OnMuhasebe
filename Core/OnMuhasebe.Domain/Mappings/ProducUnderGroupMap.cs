@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class ProducUnderGroupMap : IEntityTypeConfiguration<ProducUnderGroupMap>
+    public class ProducUnderGroupMap : IEntityTypeConfiguration<ProductUnderGroup>
     {
-        public void Configure(EntityTypeBuilder<ProducUnderGroupMap> builder)
-        {
 
+        public void Configure(EntityTypeBuilder<ProductUnderGroup> builder)
+        {
+            throw new NotImplementedException();
         }
     }
 }

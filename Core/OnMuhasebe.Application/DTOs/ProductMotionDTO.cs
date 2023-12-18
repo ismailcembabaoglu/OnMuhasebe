@@ -1,5 +1,6 @@
 ﻿using OnMuhasebe.Application.DTOs.BaseModelDTOs;
 using OnMuhasebe.Domain.Models;
+using OnMuhasebe.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace OnMuhasebe.Application.DTOs
     public class ProductMotionDTO : BaseModelDTO
     {
         public string VoucherCode { get; set; }
-        public MotionTypeDTO MotionType { get; set; }
+        public MotionType MotionType { get; set; }
         public Guid ProductId { get; set; }
         public decimal Quantity { get; set; }
 
@@ -22,10 +23,5 @@ namespace OnMuhasebe.Application.DTOs
         public DateTime Date { get; set; }
         public Guid WarehouseId { get; set; }
 
-    }
-    public enum MotionTypeDTO
-    {
-        InStock,
-        OutStock
     }
 }
