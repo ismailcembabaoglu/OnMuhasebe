@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CustomExceptions\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="ResponseModels\" />
-    <Folder Include="Services\" />
+    <Compile Remove="CustomExceptions\**" />
+    <Compile Remove="ResponseModels\**" />
+    <EmbeddedResource Remove="CustomExceptions\**" />
+    <EmbeddedResource Remove="ResponseModels\**" />
+    <None Remove="CustomExceptions\**" />
+    <None Remove="ResponseModels\**" />
   </ItemGroup>
 
   <ItemGroup>

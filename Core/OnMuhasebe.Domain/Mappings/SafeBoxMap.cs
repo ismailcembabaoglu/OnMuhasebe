@@ -19,8 +19,7 @@ namespace OnMuhasebe.Domain.Mappings
             builder.Property(sb => sb.AuthCode);
             builder.Property(sb => sb.AuthName);
 
-            // SafeBoxMotion ile ilişki
-            builder.HasMany(sb => sb.SafeBoxMotions).WithOne(sbm => sbm.SafeBox).HasForeignKey(sb => sb.SafeBoxId).OnDelete(DeleteBehavior.Cascade);
+           
         }
     }
 }

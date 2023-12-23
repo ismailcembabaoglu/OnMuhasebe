@@ -14,13 +14,8 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<ProductGroup> builder)
         {
-            builder.Property(pg => pg.ProductGroupName).IsRequired();
+            builder.Property(pg => pg.ProductGroupName);
 
-            // Products ile ilişki
-            builder.HasMany(pg => pg.Products).WithOne(p => p.ProductGroup).HasForeignKey(p => p.ProductGroupId).OnDelete(DeleteBehavior.Restrict);
-
-            // ProductUnderGroups ile ilişki
-            builder.HasMany(pg => pg.ProductUnderGroups).WithOne(pug => pug.ProductGroup).HasForeignKey(pug => pug.ProductGroupId).OnDelete(DeleteBehavior.Restrict);
         }
 
     }

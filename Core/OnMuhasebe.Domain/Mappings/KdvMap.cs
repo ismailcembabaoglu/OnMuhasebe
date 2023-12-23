@@ -15,10 +15,9 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<Kdv> builder)
         {
-            builder.Property(k => k.KdvName).HasMaxLength(255).IsRequired();
-            builder.Property(k => k.KdvRatio).HasPrecision(18, 2).IsRequired();
+            builder.Property(k => k.KdvName).HasMaxLength(255);
+            builder.Property(k => k.KdvRatio).HasPrecision(18, 2);
 
-            builder.HasMany(k => k.Prices).WithOne(p => p.Kdv).HasForeignKey(p => p.KdvId).OnDelete(DeleteBehavior.Cascade);
 
         }
     }

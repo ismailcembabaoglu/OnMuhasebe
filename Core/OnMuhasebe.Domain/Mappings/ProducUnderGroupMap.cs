@@ -17,10 +17,6 @@ namespace OnMuhasebe.Domain.Mappings
         {
             builder.Property(pug => pug.ProductUnderGroupName);
 
-            // ProductGroup ile ilişki
-            builder.HasOne(pug => pug.ProductGroup).WithMany(pg => pg.ProductUnderGroups).HasForeignKey(pug => pug.ProductGroupId).OnDelete(DeleteBehavior.Restrict);
-
-
         }
     }
 }

@@ -23,17 +23,6 @@ namespace OnMuhasebe.Domain.Mappings
             builder.Property(p => p.Producer);
             builder.Property(p => p.Photo);
 
-            // ProductGroup ile ilişki
-            builder.HasOne(p => p.ProductGroup).WithMany(pg => pg.Products).HasForeignKey(p => p.ProductGroupId).OnDelete(DeleteBehavior.Restrict);
-
-            // SpecialCodes ile ilişki
-            builder.HasMany(p => p.SpecialCodes).WithOne(sc => sc.Product).HasForeignKey(sc => sc.ProductId).OnDelete(DeleteBehavior.Restrict);
-
-            // Prices ile ilişki
-            builder.HasMany(p => p.Prices).WithOne(pr => pr.Product).HasForeignKey(pr => pr.ProductId).OnDelete(DeleteBehavior.Restrict);
-
-            // ProductMotions ile ilişki
-            builder.HasMany(p => p.ProductMotions).WithOne(pm => pm.Product).HasForeignKey(pm => pm.ProductId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

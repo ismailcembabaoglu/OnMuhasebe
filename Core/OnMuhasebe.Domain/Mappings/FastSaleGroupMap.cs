@@ -14,7 +14,7 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<FastSaleGroup> builder)
         {
-            builder.Property(fsg => fsg.GroupName).HasMaxLength(255).IsRequired();
+            builder.Property(fsg => fsg.GroupName).HasMaxLength(255);
         }
     }
 }

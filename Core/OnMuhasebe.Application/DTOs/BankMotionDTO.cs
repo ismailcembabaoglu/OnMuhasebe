@@ -14,6 +14,9 @@ namespace OnMuhasebe.Application.DTOs
         public string VoucherCode { get; set; }
         public BankMotionType BankMotionType { get; set; }
         public Guid BankId { get; set; }
+        public string? AccountName { get; set; }
+        public string? BankName { get; set; }
+        public string? IbanNo { get; set; }
         public Guid CustomerId { get; set; }
         public decimal Price { get; set; }
     }

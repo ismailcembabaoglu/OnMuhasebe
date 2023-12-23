@@ -28,6 +28,7 @@ namespace OnMuhasebe.Application.DTOs
 
         //public Guid CustomerGroupId { get; set;}
         public Guid SpecialCodeId { get; set; }
+        public string SpecialName { get; set; }
         public string TaxOffice { get; set; }
         public string TaxNumber { get; set; }
         public decimal DiscountRatio { get; set; }

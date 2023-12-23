@@ -14,7 +14,7 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<Unit> builder)
         {
-            builder.Property(u => u.UnitName).HasMaxLength(50).IsRequired();
+            builder.Property(u => u.UnitName).HasMaxLength(50);
         }
     }
 }

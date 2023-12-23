@@ -13,6 +13,7 @@ namespace OnMuhasebe.Domain.Models
     public class Product : BaseModel
     {
         public bool IsActive { get; set; }
+        public string ProductName { get; set; }
         public string ProductNumber { get; set; }
         public string Barcode { get; set; }
         public Guid UnitId { get; set; }

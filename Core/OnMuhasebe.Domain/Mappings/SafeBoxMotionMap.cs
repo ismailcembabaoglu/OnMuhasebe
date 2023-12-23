@@ -18,11 +18,7 @@ namespace OnMuhasebe.Domain.Mappings
             builder.Property(sb => sb.SafeBoxMotionType);
             builder.Property(sb => sb.Price).HasPrecision(18, 2);
 
-            // SafeBox ile ilişki
-            builder.HasOne(sb => sb.SafeBox).WithMany(s => s.SafeBoxMotions).HasForeignKey(sb => sb.SafeBoxId).OnDelete(DeleteBehavior.Restrict);
-
-            // PaymentType ile ilişki
-            builder.HasOne(sb => sb.PaymentType).WithMany(pt => pt.SafeBoxMotions).HasForeignKey(sb => sb.PaymentTypeId).OnDelete(DeleteBehavior.Restrict);
+           
 
            
         }

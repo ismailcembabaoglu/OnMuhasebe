@@ -19,11 +19,7 @@ namespace OnMuhasebe.Domain.Mappings
             builder.Property(p => p.PriceValue).HasPrecision(18, 2);
             builder.Property(p => p.IsDefault);
 
-            // Product ile ilişki
-            builder.HasOne(p => p.Product).WithMany(p => p.Prices).HasForeignKey(p => p.ProductId).OnDelete(DeleteBehavior.Restrict);
-
-            // Kdv ile ilişki
-            builder.HasOne(p => p.Kdv).WithMany(k => k.Prices).HasForeignKey(p => p.KdvId).OnDelete(DeleteBehavior.Restrict);
+           
         }
     }
 }

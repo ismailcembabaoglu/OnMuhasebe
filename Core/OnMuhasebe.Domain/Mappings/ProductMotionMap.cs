@@ -16,16 +16,13 @@ namespace OnMuhasebe.Domain.Mappings
         {
 
             builder.Property(pm => pm.VoucherCode).HasMaxLength(255);
-            builder.Property(pm => pm.MotionType).IsRequired();
+            builder.Property(pm => pm.MotionType);
             builder.Property(pm => pm.Quantity).HasPrecision(18, 3);
             builder.Property(pm => pm.Price).HasPrecision(18, 2);
             builder.Property(pm => pm.TotalAmount).HasPrecision(18, 2);
             builder.Property(pm => pm.DiscountRate).HasPrecision(18, 2);
-            builder.Property(pm => pm.Date).IsRequired();
+            builder.Property(pm => pm.Date);
 
-            builder.HasOne(pm => pm.Product).WithMany(p => p.ProductMotions).HasForeignKey(pm => pm.ProductId).OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(pm => pm.Kdv).WithMany().HasForeignKey(pm => pm.KdvId).OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(pm => pm.Warehouse).WithMany(w => w.ProductMotions).HasForeignKey(pm => pm.WarehouseId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

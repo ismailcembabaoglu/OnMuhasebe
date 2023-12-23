@@ -16,9 +16,7 @@ namespace OnMuhasebe.Domain.Mappings
         {
             builder.Property(sc => sc.SpecialName);
 
-            // Product ile ilişki
-            builder.HasOne(sc => sc.Product).WithMany(p => p.SpecialCodes).HasForeignKey(sc => sc.ProductId).OnDelete(DeleteBehavior.Restrict);
-
+          
         }
     }
 }

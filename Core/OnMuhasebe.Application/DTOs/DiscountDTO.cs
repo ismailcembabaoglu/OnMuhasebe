@@ -12,6 +12,8 @@ namespace OnMuhasebe.Application.DTOs
     public class DiscountDTO : BaseModelDTO
     {
         public Guid ProductId { get; set; }
+        public string ProductName { get; set; }
+        public string ProductNumber { get; set; }
         public DiscountType DiscountType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

@@ -14,10 +14,10 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<Discount> builder)
         {
-            builder.Property(d => d.DiscountType).IsRequired();
-            builder.Property(d => d.StartDate).IsRequired();
-            builder.Property(d => d.EndDate).IsRequired();
-            builder.Property(d => d.DiscountRatio).IsRequired().HasPrecision(18, 2);
+            builder.Property(d => d.DiscountType);
+            builder.Property(d => d.StartDate);
+            builder.Property(d => d.EndDate);
+            builder.Property(d => d.DiscountRatio).HasPrecision(18, 2);
 
         }
     }

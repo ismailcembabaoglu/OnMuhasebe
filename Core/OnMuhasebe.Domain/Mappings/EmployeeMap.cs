@@ -14,12 +14,12 @@ namespace OnMuhasebe.Domain.Mappings
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            builder.Property(e => e.IsWork).IsRequired();
+            builder.Property(e => e.IsWork);
             builder.Property(e => e.EmployeeTitle).HasMaxLength(50);
-            builder.Property(e => e.EmployeeCode).HasMaxLength(20).IsRequired();
-            builder.Property(e => e.EmployeeName).HasMaxLength(100).IsRequired();
+            builder.Property(e => e.EmployeeCode).HasMaxLength(20);
+            builder.Property(e => e.EmployeeName).HasMaxLength(100);
             builder.Property(e => e.IdentityNo).HasMaxLength(20);
-            builder.Property(e => e.WorkStartDate).IsRequired();
+            builder.Property(e => e.WorkStartDate);
             builder.Property(e => e.WorkOutDate);
             builder.Property(e => e.TaskOffice).HasMaxLength(50);
             builder.Property(e => e.TaskNo).HasMaxLength(20);
@@ -33,9 +33,7 @@ namespace OnMuhasebe.Domain.Mappings
             builder.Property(e => e.District).HasMaxLength(50);
             builder.Property(e => e.Address).HasMaxLength(200);
             builder.Property(e => e.PrimRatio).HasPrecision(18, 2);
-            builder.Property(e => e.MonthlySalary).HasPrecision(18, 2).IsRequired();
-
-            builder.HasMany(e => e.EmployeeMotions).WithOne(em => em.Employee).HasForeignKey(em => em.EmployeeId).OnDelete(DeleteBehavior.Cascade);
+            builder.Property(e => e.MonthlySalary).HasPrecision(18, 2);
 
         }
     }

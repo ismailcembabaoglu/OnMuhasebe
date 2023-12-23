@@ -8,16 +8,16 @@ namespace OnMuhasebe.Application.ResponseModels
 {
     public class BaseResponse
     {
-        // İşlemin başarılı olup olmadığını belirten özellik.
+        public BaseResponse()
+        {
+            Success = true;
+        }
         public bool Success { get; set; }
-        // İşlemle ilgili bilgi veya hata mesajını içeren özellik.
         public string Message { get; set; }
-
-
-    }
-    public class BaseResponse<T> : BaseResponse
-    {
-        // Jenerik veriyi içeren özellik.
-        public T Data { get; set; }
+        public void SetException(Exception exception)
+        {
+            Success = false;
+            Message = exception.Message;
+        }
     }
 }
