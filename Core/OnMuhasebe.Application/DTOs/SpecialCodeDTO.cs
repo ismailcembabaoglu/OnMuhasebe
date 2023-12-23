@@ -12,5 +12,7 @@ namespace OnMuhasebe.Application.DTOs
     {
         public string SpecialName { get; set; }
         public Guid ProductId { get; set; }
+        public string? ProductName { get; set; }
+        public string? ProductNumber { get; set; }
     }
 }

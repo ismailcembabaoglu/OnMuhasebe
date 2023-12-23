@@ -18,6 +18,9 @@ namespace OnMuhasebe.Application.DTOs
         public string? BankName { get; set; }
         public string? IbanNo { get; set; }
         public Guid CustomerId { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CustomerCode { get; set; }
+        public string? AuthName { get; set; }
         public decimal Price { get; set; }
     }
 

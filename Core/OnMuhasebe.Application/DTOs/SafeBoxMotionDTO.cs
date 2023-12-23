@@ -14,8 +14,14 @@ namespace OnMuhasebe.Application.DTOs
         public string VoucherCode { get; set; }
         public SafeBoxMotionType SafeBoxMotionType { get; set; }
         public Guid SafeBoxId { get; set; }
+        public string? SafeBoxCode { get; set; }
+        public string? SafeBoxName { get; set; }
         public Guid PaymentTypeId { get; set; }
+        public string? PaymentTypeCode { get; set; }
+        public string? PaymentTypeName { get; set; }
         public Guid CustomerId { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CustomerCode { get; set; }
         public decimal Price { get; set; }
     }
 

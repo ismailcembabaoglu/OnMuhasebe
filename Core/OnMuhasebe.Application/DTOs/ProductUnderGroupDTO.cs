@@ -11,5 +11,6 @@ namespace OnMuhasebe.Application.DTOs
     {
         public string ProductUnderGroupName { get; set; }
         public Guid ProductGroupId { get; set; }
+        public string? ProductGroupName { get; set; }
     }
 }

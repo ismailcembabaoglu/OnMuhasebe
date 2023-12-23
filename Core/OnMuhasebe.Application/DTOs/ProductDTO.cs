@@ -14,9 +14,9 @@ namespace OnMuhasebe.Application.DTOs
         public string ProductNumber { get; set; }
         public string Barcode { get; set; }
         public Guid ProductGroupId { get; set; }
+        public string? ProductGroupName { get; set; }
         public Guid UnitId { get; set; }
         public string? UnitName { get; set; }
-        public string? ProductGroupName { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public string GuaranteePeriod { get; set; }
