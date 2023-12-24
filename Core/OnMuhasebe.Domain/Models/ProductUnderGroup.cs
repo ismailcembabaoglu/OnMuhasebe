@@ -11,7 +11,6 @@ namespace OnMuhasebe.Domain.Models
     public class ProductUnderGroup:BaseModel
     {
         public string ProductUnderGroupName { get; set; }
-        public ICollection<Product> Products { get; set; }
         public Guid ProductGroupId { get; set; }
         public ProductGroup ProductGroup { get; set; }
     }

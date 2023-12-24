@@ -25,8 +25,8 @@ namespace OnMuhasebe.Domain.Models
         public string City { get; set;}
         public string District { get; set;}
 
-        //public Guid CustomerGroupId { get; set;}
-        //public CustomerGroup CustomerGroup { get; set;}
+        public Guid CustomerGroupId { get; set;}
+        public CustomerGroup CustomerGroup { get; set;}
         public Guid SpecialCodeId { get; set;}
         public SpecialCode SpecialCode { get; set;}
         public string TaxOffice { get; set;}
