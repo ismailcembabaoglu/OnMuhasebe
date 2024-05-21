@@ -11,11 +11,11 @@ namespace OnMuhasebe.Domain.Models
     public class BankMotion:BaseModel
     {
         public string VoucherCode { get; set; }
-        public BankMotionType BankMotionType { get; set; }
+        public string BankMotionType { get; set; }
         public Guid BankId { get; set; }
-        public Bank Bank { get; set;}
+        public Bank? Bank { get; set;}
         public Guid CustomerId { get; set;}
-        public Customer Customer { get; set;}
+        public Customer? Customer { get; set;}
         public decimal Price { get; set;}
     }
 }

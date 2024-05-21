@@ -18,8 +18,8 @@ namespace OnMuhasebe.Domain.Models
         public string AccountNo { get; set; }
         public string AuthName { get; set; }
         public string AuthPhone { get; set;}
-        public ICollection<BankMotion> BankMotions { get; set; }
-        public ICollection<Voucher> Vouchers { get; set; }
+        public ICollection<BankMotion>? BankMotions { get; set; }
+        public ICollection<Voucher>? Vouchers { get; set; }
 
 
     }

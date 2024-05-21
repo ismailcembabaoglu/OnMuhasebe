@@ -12,7 +12,7 @@ namespace OnMuhasebe.Application.DTOs
     public class SafeBoxMotionDTO : BaseModelDTO
     {
         public string VoucherCode { get; set; }
-        public SafeBoxMotionType SafeBoxMotionType { get; set; }
+        public string SafeBoxMotionType { get; set; }
         public Guid SafeBoxId { get; set; }
         public string? SafeBoxCode { get; set; }
         public string? SafeBoxName { get; set; }

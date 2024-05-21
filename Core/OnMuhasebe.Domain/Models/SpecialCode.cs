@@ -13,7 +13,7 @@ namespace OnMuhasebe.Domain.Models
         public string SpecialName { get; set; }
 
         public Guid ProductId { get; set; }
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
     }
 }
 

@@ -12,7 +12,7 @@ namespace OnMuhasebe.Application.DTOs
     public class VoucherDTO : BaseModelDTO
     {
         public string VoucherCode { get; set; }
-        public VoucherType VoucherType { get; set; }
+        public string VoucherType { get; set; }
         public Guid CustomerId { get; set; }
         public string? CustomerName { get; set; }
         public string? CustomerCode { get; set; }

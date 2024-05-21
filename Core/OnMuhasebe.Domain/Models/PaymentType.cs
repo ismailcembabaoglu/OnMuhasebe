@@ -11,6 +11,6 @@ namespace OnMuhasebe.Domain.Models
     {
         public string PaymentTypeCode { get; set; }
         public string PaymentTypeName { get; set; }
-        public ICollection<SafeBoxMotion> SafeBoxMotions { get; set; }
+        public ICollection<SafeBoxMotion>? SafeBoxMotions { get; set; }
     }
 }

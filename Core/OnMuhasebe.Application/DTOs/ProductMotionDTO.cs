@@ -12,7 +12,7 @@ namespace OnMuhasebe.Application.DTOs
     public class ProductMotionDTO : BaseModelDTO
     {
         public string VoucherCode { get; set; }
-        public MotionType MotionType { get; set; }
+        public string MotionType { get; set; }
         public Guid ProductId { get; set; }
         public string? ProductName { get; set; }
         public string? ProductNumber { get; set; }

@@ -29,7 +29,7 @@ namespace OnMuhasebe.Domain.Models
         public string Address { get; set;}
         public decimal PrimRatio { get; set;}
         public decimal MonthlySalary { get; set;}
-        public ICollection<Voucher> Vouchers { get; set;}
-        public ICollection<EmployeeMotion> EmployeeMotions { get; set;}
+        public ICollection<Voucher>? Vouchers { get; set;}
+        public ICollection<EmployeeMotion>? EmployeeMotions { get; set;}
     }
 }

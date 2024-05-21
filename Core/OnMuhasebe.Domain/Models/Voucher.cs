@@ -13,7 +13,7 @@ namespace OnMuhasebe.Domain.Models
         public string VoucherCode { get; set; }
         public VoucherType VoucherType { get; set;}
         public Guid CustomerId  { get; set; }
-        public Customer Customer { get; set; }
+        public Customer? Customer { get; set; }
         public string DocumentNo { get; set; }
         public decimal DiscountRate { get; set; }
         public decimal DiscountPrice { get; set; }

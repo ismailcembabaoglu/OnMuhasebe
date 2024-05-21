@@ -26,16 +26,16 @@ namespace OnMuhasebe.Domain.Models
         public string District { get; set;}
 
         public Guid CustomerGroupId { get; set;}
-        public CustomerGroup CustomerGroup { get; set;}
+        public CustomerGroup? CustomerGroup { get; set;}
         public Guid SpecialCodeId { get; set;}
-        public SpecialCode SpecialCode { get; set;}
+        public SpecialCode? SpecialCode { get; set;}
         public string TaxOffice { get; set;}
         public string TaxNumber { get; set;}
         public decimal DiscountRatio { get; set;}
         public string RiskLimit { get; set;}
-        public ICollection<BankMotion> BankMotions { get; set;}
-        public ICollection<SafeBox> SafeBoxes { get; set;}
-        public ICollection<Voucher> Vouchers { get; set;}
+        public ICollection<BankMotion>? BankMotions { get; set;}
+        public ICollection<SafeBox>? SafeBoxes { get; set;}
+        public ICollection<Voucher>? Vouchers { get; set;}
 
     }
 }

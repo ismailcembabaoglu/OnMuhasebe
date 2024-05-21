@@ -18,8 +18,8 @@ namespace OnMuhasebe.Domain.Models
         public string District { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
-        public ICollection<ProductMotion> ProductMotions { get; set; }
-        public ICollection<Voucher> Vouchers { get; set; }
+        public ICollection<ProductMotion>? ProductMotions { get; set; }
+        public ICollection<Voucher>? Vouchers { get; set; }
 
     }
 }

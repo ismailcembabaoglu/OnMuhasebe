@@ -10,8 +10,8 @@ namespace OnMuhasebe.Domain.Models
     public class FastSale:BaseModel
     {
         public Guid FastSaleGroupId { get; set; }
-        public FastSaleGroup FastSaleGroup { get; set;}
+        public FastSaleGroup? FastSaleGroup { get; set;}
         public Guid ProductId { get; set; }
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
     }
 }

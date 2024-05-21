@@ -12,6 +12,6 @@ namespace OnMuhasebe.Domain.Models
     {
         public string ProductUnderGroupName { get; set; }
         public Guid ProductGroupId { get; set; }
-        public ProductGroup ProductGroup { get; set; }
+        public ProductGroup? ProductGroup { get; set; }
     }
 }

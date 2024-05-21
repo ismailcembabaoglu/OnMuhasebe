@@ -13,7 +13,7 @@ namespace OnMuhasebe.Domain.Models
     {
         public Guid ProductId { get; set; }
 
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
 
         public PriceType PriceType { get; set; }
 
@@ -21,7 +21,7 @@ namespace OnMuhasebe.Domain.Models
 
         public Guid KdvId { get; set; }
 
-        public Kdv Kdv { get; set; }
+        public Kdv? Kdv { get; set; }
 
         public bool IsDefault { get; set; }
     }

@@ -12,7 +12,7 @@ namespace OnMuhasebe.Application.DTOs
     public class BankMotionDTO : BaseModelDTO
     {
         public string VoucherCode { get; set; }
-        public BankMotionType BankMotionType { get; set; }
+        public string BankMotionType { get; set; }
         public Guid BankId { get; set; }
         public string? AccountName { get; set; }
         public string? BankName { get; set; }

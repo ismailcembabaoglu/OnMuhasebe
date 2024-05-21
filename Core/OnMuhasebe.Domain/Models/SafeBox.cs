@@ -14,7 +14,7 @@ namespace OnMuhasebe.Domain.Models
 
         public string AuthCode { get; set; }
         public string AuthName { get; set; }
-        public ICollection<SafeBoxMotion> SafeBoxMotions { get; set; }
+        public ICollection<SafeBoxMotion>? SafeBoxMotions { get; set; }
 
 
     }

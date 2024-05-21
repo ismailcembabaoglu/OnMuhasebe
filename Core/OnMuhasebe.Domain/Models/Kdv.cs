@@ -13,6 +13,6 @@ namespace OnMuhasebe.Domain.Models
         public string KdvName { get; set; }
 
         public decimal KdvRatio { get; set; }
-        public ICollection<Price> Prices { get; set; }
+        public ICollection<Price>? Prices { get; set; }
     }
 }
