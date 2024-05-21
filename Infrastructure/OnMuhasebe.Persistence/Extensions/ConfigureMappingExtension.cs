@@ -37,7 +37,8 @@ namespace OnMuhasebe.Persistence.Extensions
                 .ForMember(c => c.CustomerCode, y => y.MapFrom(z => z.Customer.CustomerCode))
                 .ForMember(c => c.AuthName, y => y.MapFrom(z => z.Customer.AuthName));
             CreateMap<BankMotionDTO, BankMotion>();
-
+            CreateMap<User, UserDTO>();
+            CreateMap<UserDTO, User>();
         }
     }
 
