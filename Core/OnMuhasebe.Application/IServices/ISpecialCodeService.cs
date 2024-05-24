@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnMuhasebe.Application.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,10 @@ namespace OnMuhasebe.Application.IServices
 {
     public interface ISpecialCodeService
     {
+        public Task<List<SpecialCodeDTO>> GetSpecialCodes();
+        public Task<SpecialCodeDTO> CreateSpecialCode(SpecialCodeDTO SpecialCode);
+        public Task<SpecialCodeDTO> UpdateSpecialCode(SpecialCodeDTO SpecialCode);
+        public Task<bool> DeleteSpecialCodeId(Guid id);
+        public Task<SpecialCodeDTO> GetSpecialCodeById(Guid Id);
     }
 }

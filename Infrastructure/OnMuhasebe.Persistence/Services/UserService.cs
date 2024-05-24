@@ -34,7 +34,7 @@ namespace OnMuhasebe.Persistence.Services
             if (dbUser != null)
                 throw new Exception("Bu Kullanıcı Zaten Sistemde Kayıtlı");
             dbUser = mapper.Map<User>(user);
-            dbUser.CreatedAt = DateTime.Now;
+            dbUser.CreateDate = DateTime.Now;
             await context.Users.AddAsync(dbUser);
             int result = await context.SaveChangesAsync();
 

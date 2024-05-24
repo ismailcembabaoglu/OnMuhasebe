@@ -13,7 +13,7 @@ namespace OnMuhasebe.Application.IServices
         public Task<List<KdvDTO>> GetKdvs();
         public Task<KdvDTO> CreateKdv(KdvDTO Kdv);
         public Task<KdvDTO> UpdateKdv(KdvDTO Kdv);
-        public Task<bool> DeleteKdvId(Guid id);
-        public Task<KdvDTO> GetKdvId(Guid id);
+        public Task<bool> DeleteKdvId(Guid Id);
+        public Task<KdvDTO> GetKdvById(Guid Id);
     }
 }
