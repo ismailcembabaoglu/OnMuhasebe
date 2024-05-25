@@ -14,7 +14,7 @@ namespace OnMuhasebe.Application.DTOs.BaseModelDTOs
         public string? UpdatedUser { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string? Decription { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
         
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class PaymentTypeMap :BaseModelMap, IEntityTypeConfiguration<PaymentType>
+    public class PaymentTypeMap : IEntityTypeConfiguration<PaymentType>
     {
         public void Configure(EntityTypeBuilder<PaymentType> builder)
         {

@@ -14,5 +14,6 @@ namespace OnMuhasebe.Domain.Models
 
         public decimal KdvRatio { get; set; }
         public ICollection<Price>? Prices { get; set; }
+        public ICollection<ProductMotion> ProductMotions { get; set; }
     }
 }

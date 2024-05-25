@@ -10,5 +10,8 @@ namespace OnMuhasebe.Domain.Models
     public class Unit:BaseModel
     {
         public string UnitName { get; set; }
+
+        public ICollection<Product> Products { get; set; }
+
     }
 }

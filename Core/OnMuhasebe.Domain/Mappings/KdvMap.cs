@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class KdvMap: BaseModelMap, IEntityTypeConfiguration<Kdv>
+    public class KdvMap: IEntityTypeConfiguration<Kdv>
     {
         public void Configure(EntityTypeBuilder<Kdv> builder)
         {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class BankMotionMap : BaseModelMap, IEntityTypeConfiguration<BankMotion>
+    public class BankMotionMap : IEntityTypeConfiguration<BankMotion>
     {
         public void Configure(EntityTypeBuilder<BankMotion> builder)
         {

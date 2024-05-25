@@ -36,6 +36,7 @@ namespace OnMuhasebe.Domain.Models
         public ICollection<BankMotion>? BankMotions { get; set;}
         public ICollection<SafeBox>? SafeBoxes { get; set;}
         public ICollection<Voucher>? Vouchers { get; set;}
+        public ICollection<SafeBoxMotion> SafeBoxMotions { get; set; }
 
     }
 }

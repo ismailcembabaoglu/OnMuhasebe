@@ -13,6 +13,7 @@ namespace OnMuhasebe.Application.DTOs
     {
         public string VoucherCode { get; set; }
         public string SafeBoxMotionType { get; set; }
+        public decimal Price { get; set; }
         public Guid SafeBoxId { get; set; }
         public string? SafeBoxCode { get; set; }
         public string? SafeBoxName { get; set; }
@@ -22,7 +23,7 @@ namespace OnMuhasebe.Application.DTOs
         public Guid CustomerId { get; set; }
         public string? CustomerName { get; set; }
         public string? CustomerCode { get; set; }
-        public decimal Price { get; set; }
+        
     }
 
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class ProductGroupMap : BaseModelMap, IEntityTypeConfiguration<ProductGroup>
+    public class ProductGroupMap : IEntityTypeConfiguration<ProductGroup>
     {
         public void Configure(EntityTypeBuilder<ProductGroup> builder)
         {

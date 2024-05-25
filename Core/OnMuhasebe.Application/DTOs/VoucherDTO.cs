@@ -13,15 +13,15 @@ namespace OnMuhasebe.Application.DTOs
     {
         public string VoucherCode { get; set; }
         public string VoucherType { get; set; }
-        public Guid CustomerId { get; set; }
-        public string? CustomerName { get; set; }
-        public string? CustomerCode { get; set; }
         public string DocumentNo { get; set; }
         public decimal DiscountRate { get; set; }
         public decimal DiscountPrice { get; set; }
         public decimal Owed { get; set; }
         public decimal Debt { get; set; }
         public decimal TotalPrice { get; set; }
+        public Guid CustomerId { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CustomerCode { get; set; }
         public Guid BankId { get; set; }
         public string? AccountCode { get; set; }
         public string? AccountName { get; set; }

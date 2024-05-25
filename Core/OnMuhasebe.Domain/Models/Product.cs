@@ -24,6 +24,8 @@ namespace OnMuhasebe.Domain.Models
         public string Brand { get; set; }
         public string Model { get; set; }
         public ICollection<SpecialCode>? SpecialCodes { get; set; }
+        public ICollection<Discount>? Discounts { get; set; }
+        public ICollection<FastSale>? FastSales { get; set; }
         public string GuaranteePeriod { get; set; }
         public string Producer { get; set; }
 

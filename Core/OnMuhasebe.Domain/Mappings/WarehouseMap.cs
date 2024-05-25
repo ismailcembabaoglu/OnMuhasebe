@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class WarehouseMap : BaseModelMap, IEntityTypeConfiguration<Warehouse>
+    public class WarehouseMap : IEntityTypeConfiguration<Warehouse>
     {
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {

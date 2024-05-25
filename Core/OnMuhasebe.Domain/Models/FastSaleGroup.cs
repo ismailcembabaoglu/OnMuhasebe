@@ -10,5 +10,6 @@ namespace OnMuhasebe.Domain.Models
     public class FastSaleGroup:BaseModel
     {
         public string GroupName { get; set; }
+        public ICollection<FastSale> FastSales { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace OnMuhasebe.Domain.Models
     {
         public string CustomerUnderGroupName { get; set; }
 
-        public Guid CustomerGroupID { get; set; }
+        public Guid CustomerGroupId { get; set; }
         public CustomerGroup? CustomerGroup { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace OnMuhasebe.Application.DTOs
     {
         public string VoucherCode { get; set; }
         public string BankMotionType { get; set; }
+        public decimal Price { get; set; }
         public Guid BankId { get; set; }
         public string? AccountName { get; set; }
         public string? BankName { get; set; }
@@ -21,7 +22,7 @@ namespace OnMuhasebe.Application.DTOs
         public string? CustomerName { get; set; }
         public string? CustomerCode { get; set; }
         public string? AuthName { get; set; }
-        public decimal Price { get; set; }
+       
     }
 
 }

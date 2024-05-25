@@ -28,20 +28,20 @@ namespace OnMuhasebe.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CreatedUser")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Decription")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UpdatedUser")
@@ -243,7 +243,23 @@ namespace OnMuhasebe.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.ToTable("CustomerGroup");
+                    b.ToTable("CustomerGroups");
+                });
+
+            modelBuilder.Entity("OnMuhasebe.Domain.Models.CustomerUnderGroup", b =>
+                {
+                    b.HasBaseType("OnMuhasebe.Domain.Models.BaseModels.BaseModel");
+
+                    b.Property<Guid>("CustomerGroupId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CustomerUnderGroupName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasIndex("CustomerGroupId");
+
+                    b.ToTable("CustomerUnderGroups");
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Discount", b =>
@@ -853,13 +869,13 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasOne("OnMuhasebe.Domain.Models.Bank", "Bank")
                         .WithMany("BankMotions")
                         .HasForeignKey("BankId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Customer", "Customer")
                         .WithMany("BankMotions")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Bank");
@@ -870,15 +886,15 @@ namespace OnMuhasebe.Persistence.Migrations
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Customer", b =>
                 {
                     b.HasOne("OnMuhasebe.Domain.Models.CustomerGroup", "CustomerGroup")
-                        .WithMany()
+                        .WithMany("Customers")
                         .HasForeignKey("CustomerGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.SpecialCode", "SpecialCode")
-                        .WithMany()
+                        .WithMany("Customers")
                         .HasForeignKey("SpecialCodeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("CustomerGroup");
@@ -886,12 +902,23 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.Navigation("SpecialCode");
                 });
 
+            modelBuilder.Entity("OnMuhasebe.Domain.Models.CustomerUnderGroup", b =>
+                {
+                    b.HasOne("OnMuhasebe.Domain.Models.CustomerGroup", "CustomerGroup")
+                        .WithMany("CustomerUnderGroups")
+                        .HasForeignKey("CustomerGroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CustomerGroup");
+                });
+
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Discount", b =>
                 {
                     b.HasOne("OnMuhasebe.Domain.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("Discounts")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -902,7 +929,7 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasOne("OnMuhasebe.Domain.Models.Employee", "Employee")
                         .WithMany("EmployeeMotions")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Employee");
@@ -911,15 +938,15 @@ namespace OnMuhasebe.Persistence.Migrations
             modelBuilder.Entity("OnMuhasebe.Domain.Models.FastSale", b =>
                 {
                     b.HasOne("OnMuhasebe.Domain.Models.FastSaleGroup", "FastSaleGroup")
-                        .WithMany()
+                        .WithMany("FastSales")
                         .HasForeignKey("FastSaleGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("FastSales")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("FastSaleGroup");
@@ -932,13 +959,13 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasOne("OnMuhasebe.Domain.Models.Kdv", "Kdv")
                         .WithMany("Prices")
                         .HasForeignKey("KdvId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Product", "Product")
                         .WithMany("Prices")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Kdv");
@@ -951,13 +978,13 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasOne("OnMuhasebe.Domain.Models.ProductGroup", "ProductGroup")
                         .WithMany("Products")
                         .HasForeignKey("ProductGroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Unit", "Unit")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ProductGroup");
@@ -968,15 +995,15 @@ namespace OnMuhasebe.Persistence.Migrations
             modelBuilder.Entity("OnMuhasebe.Domain.Models.ProductMotion", b =>
                 {
                     b.HasOne("OnMuhasebe.Domain.Models.Kdv", "Kdv")
-                        .WithMany()
+                        .WithMany("ProductMotions")
                         .HasForeignKey("KdvId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Product", "Product")
                         .WithMany("ProductMotions")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Warehouse", "Warehouse")
@@ -997,7 +1024,7 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasOne("OnMuhasebe.Domain.Models.ProductGroup", "ProductGroup")
                         .WithMany("ProductUnderGroups")
                         .HasForeignKey("ProductGroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ProductGroup");
@@ -1013,21 +1040,21 @@ namespace OnMuhasebe.Persistence.Migrations
             modelBuilder.Entity("OnMuhasebe.Domain.Models.SafeBoxMotion", b =>
                 {
                     b.HasOne("OnMuhasebe.Domain.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("SafeBoxMotions")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.PaymentType", "PaymentType")
                         .WithMany("SafeBoxMotions")
                         .HasForeignKey("PaymentTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.SafeBox", "SafeBox")
                         .WithMany("SafeBoxMotions")
                         .HasForeignKey("SafeBoxId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -1042,7 +1069,7 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasOne("OnMuhasebe.Domain.Models.Product", "Product")
                         .WithMany("SpecialCodes")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -1053,13 +1080,13 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasOne("OnMuhasebe.Domain.Models.Bank", "Bank")
                         .WithMany("Vouchers")
                         .HasForeignKey("BankId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Customer", "Customer")
                         .WithMany("Vouchers")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Employee", null)
@@ -1086,9 +1113,18 @@ namespace OnMuhasebe.Persistence.Migrations
                 {
                     b.Navigation("BankMotions");
 
+                    b.Navigation("SafeBoxMotions");
+
                     b.Navigation("SafeBoxes");
 
                     b.Navigation("Vouchers");
+                });
+
+            modelBuilder.Entity("OnMuhasebe.Domain.Models.CustomerGroup", b =>
+                {
+                    b.Navigation("CustomerUnderGroups");
+
+                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Employee", b =>
@@ -1098,9 +1134,16 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.Navigation("Vouchers");
                 });
 
+            modelBuilder.Entity("OnMuhasebe.Domain.Models.FastSaleGroup", b =>
+                {
+                    b.Navigation("FastSales");
+                });
+
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Kdv", b =>
                 {
                     b.Navigation("Prices");
+
+                    b.Navigation("ProductMotions");
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.PaymentType", b =>
@@ -1110,6 +1153,10 @@ namespace OnMuhasebe.Persistence.Migrations
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Product", b =>
                 {
+                    b.Navigation("Discounts");
+
+                    b.Navigation("FastSales");
+
                     b.Navigation("Prices");
 
                     b.Navigation("ProductMotions");
@@ -1127,6 +1174,16 @@ namespace OnMuhasebe.Persistence.Migrations
             modelBuilder.Entity("OnMuhasebe.Domain.Models.SafeBox", b =>
                 {
                     b.Navigation("SafeBoxMotions");
+                });
+
+            modelBuilder.Entity("OnMuhasebe.Domain.Models.SpecialCode", b =>
+                {
+                    b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("OnMuhasebe.Domain.Models.Unit", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Warehouse", b =>

@@ -21,7 +21,7 @@ namespace OnMuhasebe.Domain.Models
         public decimal Debt { get; set;}
         public decimal TotalPrice { get; set;}
         public Guid BankId { get; set;}
-        public Bank Bank { get; set;}
+        public Bank? Bank { get; set;}
 
     }
 }

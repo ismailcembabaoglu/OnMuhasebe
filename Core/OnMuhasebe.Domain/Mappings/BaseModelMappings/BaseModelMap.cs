@@ -14,12 +14,12 @@ namespace OnMuhasebe.Domain.Mappings.BaseModelMappings
         public void Configure(EntityTypeBuilder<BaseModel> builder)
         {
             builder.HasKey(b => b.Id);
-            builder.Property(b => b.CreatedAt);
-            builder.Property(b => b.UpdatedAt);
+            builder.Property(b => b.CreateDate);
+            builder.Property(b => b.UpdatedDate);
             builder.Property(b => b.CreatedUser);
             builder.Property(b => b.UpdatedUser);
             builder.Property(b => b.IsDeleted);
-            builder.Property(b => b.Description);
+            builder.Property(b => b.Decription);
         }
 
     }

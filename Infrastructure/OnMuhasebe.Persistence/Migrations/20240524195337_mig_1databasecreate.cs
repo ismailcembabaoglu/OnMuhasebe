@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OnMuhasebe.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class mig_dbcreate : Migration
+    public partial class mig_1databasecreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,12 +16,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     AccountCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     AccountName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     BankName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
@@ -37,16 +37,34 @@ namespace OnMuhasebe.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CustomerGroups",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    CustomerGroupName = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     IsWork = table.Column<bool>(type: "boolean", nullable: false),
                     EmployeeTitle = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     EmployeeCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
@@ -78,12 +96,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     GroupName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
@@ -96,12 +114,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     KdvName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     KdvRatio = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false)
                 },
@@ -115,12 +133,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     PaymentTypeCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     PaymentTypeName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
@@ -134,12 +152,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     ProductGroupName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -152,12 +170,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     UnitName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -170,12 +188,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
@@ -192,12 +210,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     WarehouseName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     WarehouseCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     AuthCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
@@ -214,16 +232,40 @@ namespace OnMuhasebe.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CustomerUnderGroups",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    CustomerUnderGroupName = table.Column<string>(type: "text", nullable: false),
+                    CustomerGroupId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerUnderGroups", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomerUnderGroups_CustomerGroups_CustomerGroupId",
+                        column: x => x.CustomerGroupId,
+                        principalTable: "CustomerGroups",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EmployeeMotions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     EmployeeId = table.Column<Guid>(type: "uuid", nullable: false),
                     Period = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PrimRatio = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
@@ -237,8 +279,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_EmployeeMotions_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -246,12 +287,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     ProductUnderGroupName = table.Column<string>(type: "text", nullable: false),
                     ProductGroupId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -262,8 +303,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_ProductUnderGroups_ProductGroups_ProductGroupId",
                         column: x => x.ProductGroupId,
                         principalTable: "ProductGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -271,13 +311,14 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    ProductName = table.Column<string>(type: "text", nullable: false),
                     ProductNumber = table.Column<string>(type: "text", nullable: false),
                     Barcode = table.Column<string>(type: "text", nullable: false),
                     UnitId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -286,8 +327,7 @@ namespace OnMuhasebe.Persistence.Migrations
                     Model = table.Column<string>(type: "text", nullable: false),
                     GuaranteePeriod = table.Column<string>(type: "text", nullable: false),
                     Producer = table.Column<string>(type: "text", nullable: false),
-                    Photo = table.Column<string>(type: "text", nullable: false),
-                    ProductUnderGroupId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Photo = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -296,19 +336,12 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_Products_ProductGroups_ProductGroupId",
                         column: x => x.ProductGroupId,
                         principalTable: "ProductGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Products_ProductUnderGroups_ProductUnderGroupId",
-                        column: x => x.ProductUnderGroupId,
-                        principalTable: "ProductUnderGroups",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Products_Units_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Units",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -316,14 +349,14 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DiscountType = table.Column<int>(type: "integer", nullable: false),
+                    DiscountType = table.Column<string>(type: "text", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DiscountRatio = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false)
@@ -335,8 +368,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_Discounts_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -344,12 +376,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     FastSaleGroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -360,14 +392,12 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_FastSales_FastSaleGroups_FastSaleGroupId",
                         column: x => x.FastSaleGroupId,
                         principalTable: "FastSaleGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FastSales_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -375,12 +405,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     PriceType = table.Column<int>(type: "integer", nullable: false),
                     PriceValue = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
@@ -394,14 +424,12 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_Prices_Kdvs_KdvId",
                         column: x => x.KdvId,
                         principalTable: "Kdvs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Prices_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -409,14 +437,14 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     VoucherCode = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    MotionType = table.Column<int>(type: "integer", nullable: false),
+                    MotionType = table.Column<string>(type: "text", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     Quantity = table.Column<decimal>(type: "numeric(18,3)", precision: 18, scale: 3, nullable: false),
                     KdvId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -433,14 +461,12 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_ProductMotions_Kdvs_KdvId",
                         column: x => x.KdvId,
                         principalTable: "Kdvs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProductMotions_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProductMotions_Warehouses_WarehouseId",
                         column: x => x.WarehouseId,
@@ -454,12 +480,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     SpecialName = table.Column<string>(type: "text", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -470,8 +496,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_SpecialCodes_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -479,12 +504,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CustomerType = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     CustomerName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
@@ -499,6 +524,7 @@ namespace OnMuhasebe.Persistence.Migrations
                     Country = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     City = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     District = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    CustomerGroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     SpecialCodeId = table.Column<Guid>(type: "uuid", nullable: false),
                     TaxOffice = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     TaxNumber = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
@@ -509,11 +535,15 @@ namespace OnMuhasebe.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Customers_CustomerGroups_CustomerGroupId",
+                        column: x => x.CustomerGroupId,
+                        principalTable: "CustomerGroups",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Customers_SpecialCodes_SpecialCodeId",
                         column: x => x.SpecialCodeId,
                         principalTable: "SpecialCodes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -521,14 +551,14 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     VoucherCode = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    BankMotionType = table.Column<int>(type: "integer", nullable: false),
+                    BankMotionType = table.Column<string>(type: "text", nullable: false),
                     BankId = table.Column<Guid>(type: "uuid", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
                     Price = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false)
@@ -540,14 +570,12 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_BankMotions_Banks_BankId",
                         column: x => x.BankId,
                         principalTable: "Banks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BankMotions_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -555,12 +583,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     SafeBoxCode = table.Column<string>(type: "text", nullable: false),
                     SafeBoxName = table.Column<string>(type: "text", nullable: false),
                     AuthCode = table.Column<string>(type: "text", nullable: false),
@@ -582,12 +610,12 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     VoucherCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     VoucherType = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -608,14 +636,12 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_Vouchers_Banks_BankId",
                         column: x => x.BankId,
                         principalTable: "Banks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Vouchers_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Vouchers_Employees_EmployeeId",
                         column: x => x.EmployeeId,
@@ -633,14 +659,14 @@ namespace OnMuhasebe.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Decription = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     VoucherCode = table.Column<string>(type: "text", nullable: false),
-                    SafeBoxMotionType = table.Column<int>(type: "integer", nullable: false),
+                    SafeBoxMotionType = table.Column<string>(type: "text", nullable: false),
                     SafeBoxId = table.Column<Guid>(type: "uuid", nullable: false),
                     PaymentTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -653,20 +679,17 @@ namespace OnMuhasebe.Persistence.Migrations
                         name: "FK_SafeBoxMotions_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_SafeBoxMotions_PaymentTypes_PaymentTypeId",
                         column: x => x.PaymentTypeId,
                         principalTable: "PaymentTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_SafeBoxMotions_SafeBoxes_SafeBoxId",
                         column: x => x.SafeBoxId,
                         principalTable: "SafeBoxes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -680,9 +703,19 @@ namespace OnMuhasebe.Persistence.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_CustomerGroupId",
+                table: "Customers",
+                column: "CustomerGroupId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customers_SpecialCodeId",
                 table: "Customers",
                 column: "SpecialCodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerUnderGroups_CustomerGroupId",
+                table: "CustomerUnderGroups",
+                column: "CustomerGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Discounts_ProductId",
@@ -733,11 +766,6 @@ namespace OnMuhasebe.Persistence.Migrations
                 name: "IX_Products_ProductGroupId",
                 table: "Products",
                 column: "ProductGroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductUnderGroupId",
-                table: "Products",
-                column: "ProductUnderGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_UnitId",
@@ -802,6 +830,9 @@ namespace OnMuhasebe.Persistence.Migrations
                 name: "BankMotions");
 
             migrationBuilder.DropTable(
+                name: "CustomerUnderGroups");
+
+            migrationBuilder.DropTable(
                 name: "Discounts");
 
             migrationBuilder.DropTable(
@@ -815,6 +846,9 @@ namespace OnMuhasebe.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductMotions");
+
+            migrationBuilder.DropTable(
+                name: "ProductUnderGroups");
 
             migrationBuilder.DropTable(
                 name: "SafeBoxMotions");
@@ -850,19 +884,19 @@ namespace OnMuhasebe.Persistence.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
+                name: "CustomerGroups");
+
+            migrationBuilder.DropTable(
                 name: "SpecialCodes");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "ProductUnderGroups");
+                name: "ProductGroups");
 
             migrationBuilder.DropTable(
                 name: "Units");
-
-            migrationBuilder.DropTable(
-                name: "ProductGroups");
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class FastSaleGroupMap : BaseModelMap, IEntityTypeConfiguration<FastSaleGroup>
+    public class FastSaleGroupMap :  IEntityTypeConfiguration<FastSaleGroup>
     {
         public void Configure(EntityTypeBuilder<FastSaleGroup> builder)
         {

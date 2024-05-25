@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class VoucherMap : BaseModelMap, IEntityTypeConfiguration<Voucher>
+    public class VoucherMap : IEntityTypeConfiguration<Voucher>
     {
         public void Configure(EntityTypeBuilder<Voucher> builder)
         {

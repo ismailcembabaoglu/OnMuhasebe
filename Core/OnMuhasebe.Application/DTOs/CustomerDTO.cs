@@ -14,7 +14,6 @@ namespace OnMuhasebe.Application.DTOs
         public string CustomerType { get; set; }
         public string CustomerName { get; set; }
         public string CustomerCode { get; set; }
-
         public string AuthName { get; set; }
         public string InvoiceTitle { get; set; }
         public string PersonPhoneNumber { get; set; }
@@ -25,13 +24,14 @@ namespace OnMuhasebe.Application.DTOs
         public string Country { get; set; }
         public string City { get; set; }
         public string District { get; set; }
-
-        //public Guid CustomerGroupId { get; set;}
-        public Guid SpecialCodeId { get; set; }
-        public string SpecialName { get; set; }
         public string TaxOffice { get; set; }
         public string TaxNumber { get; set; }
         public decimal DiscountRatio { get; set; }
         public string RiskLimit { get; set; }
+        public Guid CustomerGroupId { get; set;}
+        public string? CustomerGroupName { get; set; }
+        public Guid SpecialCodeId { get; set; }
+        public string? SpecialName { get; set; }
+      
     }
 }

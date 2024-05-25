@@ -14,6 +14,8 @@ namespace OnMuhasebe.Domain.Models
 
         public Guid ProductId { get; set; }
         public Product? Product { get; set; }
+
+        public ICollection<Customer> Customers { get; set; }
     }
 }
 

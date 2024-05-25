@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class EmployeeMotionMap : BaseModelMap, IEntityTypeConfiguration<EmployeeMotion>
+    public class EmployeeMotionMap : IEntityTypeConfiguration<EmployeeMotion>
     {
         public void Configure(EntityTypeBuilder<EmployeeMotion> builder)
         {

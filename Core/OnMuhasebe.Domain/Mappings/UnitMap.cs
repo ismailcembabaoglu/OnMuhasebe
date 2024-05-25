@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class UnitMap : BaseModelMap, IEntityTypeConfiguration<Unit>
+    public class UnitMap : IEntityTypeConfiguration<Unit>
     {
         public void Configure(EntityTypeBuilder<Unit> builder)
         {

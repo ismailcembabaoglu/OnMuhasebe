@@ -74,7 +74,7 @@ namespace OnMuhasebe.Persistence.Services
 
             if (dbFastSale == null)
                 throw new Exception("Hızlı Satış Bulunamadığından Dolayı Güncelleme İşlemi Başarısız");
-            mapper.Map(FastSale, dbFastSale;
+            mapper.Map(FastSale, dbFastSale);
 
             int result = await context.SaveChangesAsync();
             return mapper.Map<FastSaleDTO>(dbFastSale);

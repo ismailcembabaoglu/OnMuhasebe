@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class SafeBoxMap : BaseModelMap, IEntityTypeConfiguration<SafeBox>
+    public class SafeBoxMap :  IEntityTypeConfiguration<SafeBox>
     {
         public void Configure(EntityTypeBuilder<SafeBox> builder)
         {

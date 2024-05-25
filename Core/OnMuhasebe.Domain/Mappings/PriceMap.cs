@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class PriceMap : BaseModelMap, IEntityTypeConfiguration<Price>
+    public class PriceMap :IEntityTypeConfiguration<Price>
     {
         public void Configure(EntityTypeBuilder<Price> builder)
         {

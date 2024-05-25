@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Domain.Mappings
 {
-    public class DiscountMap : BaseModelMap, IEntityTypeConfiguration<Discount>
+    public class DiscountMap :  IEntityTypeConfiguration<Discount>
     {
         public void Configure(EntityTypeBuilder<Discount> builder)
         {
