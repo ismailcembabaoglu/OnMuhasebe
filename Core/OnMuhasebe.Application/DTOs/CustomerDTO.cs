@@ -30,8 +30,6 @@ namespace OnMuhasebe.Application.DTOs
         public string RiskLimit { get; set; }
         public Guid CustomerGroupId { get; set;}
         public string? CustomerGroupName { get; set; }
-        public Guid SpecialCodeId { get; set; }
-        public string? SpecialName { get; set; }
       
     }
 }

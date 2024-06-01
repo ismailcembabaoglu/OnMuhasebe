@@ -27,8 +27,6 @@ namespace OnMuhasebe.Domain.Models
 
         public Guid CustomerGroupId { get; set;}
         public CustomerGroup? CustomerGroup { get; set;}
-        public Guid SpecialCodeId { get; set;}
-        public SpecialCode? SpecialCode { get; set;}
         public string TaxOffice { get; set;}
         public string TaxNumber { get; set;}
         public decimal DiscountRatio { get; set;}

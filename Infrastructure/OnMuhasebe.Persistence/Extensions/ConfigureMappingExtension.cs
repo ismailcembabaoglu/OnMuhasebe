@@ -40,8 +40,7 @@ namespace OnMuhasebe.Persistence.Extensions
             CreateMap<BankMotionDTO, BankMotion>();
 
             CreateMap<Customer, CustomerDTO>()
-                .ForMember(e => e.CustomerGroupName,e => e.MapFrom(e => e.CustomerGroup.CustomerGroupName))
-                .ForMember(e=>e.SpecialName,e=>e.MapFrom(e=>e.SpecialCode.SpecialName));
+                .ForMember(e => e.CustomerGroupName, e => e.MapFrom(e => e.CustomerGroup.CustomerGroupName));
             CreateMap<CustomerDTO, Customer>();
 
             CreateMap<CustomerGroup, CustomerDTO>();

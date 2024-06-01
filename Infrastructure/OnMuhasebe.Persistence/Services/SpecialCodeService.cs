@@ -66,7 +66,13 @@ namespace OnMuhasebe.Persistence.Services
                .ProjectTo<SpecialCodeDTO>(mapper.ConfigurationProvider).ToListAsync();
             return dbSpecialCode;
         }
-
+        public async Task<List<SpecialCodeDTO>> GetSpecialCodeProductById(Guid productId)
+        {
+            var dbSpecialCode = await context.SpecialCodes
+        .Include(c => c.Product).Where(c => c.ProductId == productId)
+        .ProjectTo<SpecialCodeDTO>(mapper.ConfigurationProvider).ToListAsync();
+            return dbSpecialCode;
+        }
         public async Task<SpecialCodeDTO> UpdateSpecialCode(SpecialCodeDTO SpecialCode)
         {
             var dbSpecialCode = await context.SpecialCodes.Include(c => c.Product)

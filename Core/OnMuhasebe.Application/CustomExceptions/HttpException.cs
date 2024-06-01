@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Application.CustomExceptions
 {
-    public class HttpException
+    public class HttpException : Exception
     {
+        public HttpException(String Message) : base(Message) { }
+
+        public HttpException(String Message, Exception InnerException) : base(Message, InnerException) { }
     }
 }

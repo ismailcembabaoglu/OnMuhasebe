@@ -58,5 +58,13 @@ namespace OnMuhasebe.Server.Controllers
                 Value = await priceService.GetPriceById(Id)
             };
         }
+        [HttpGet("PriceProductById/{ProductId}")]
+        public async Task<ServiceResponse<List<PriceDTO>>> GetPriceProcutById(Guid ProductId)
+        {
+            return new ServiceResponse<List<PriceDTO>>()
+            {
+                Value = await priceService.GetPriceProductById(ProductId)
+            };
+        }
     }
 }

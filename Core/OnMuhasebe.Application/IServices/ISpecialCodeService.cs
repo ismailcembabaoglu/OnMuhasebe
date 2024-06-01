@@ -12,6 +12,7 @@ namespace OnMuhasebe.Application.IServices
         public Task<List<SpecialCodeDTO>> GetSpecialCodes();
         public Task<SpecialCodeDTO> CreateSpecialCode(SpecialCodeDTO SpecialCode);
         public Task<SpecialCodeDTO> UpdateSpecialCode(SpecialCodeDTO SpecialCode);
+        public Task<List<SpecialCodeDTO>> GetSpecialCodeProductById(Guid productId);
         public Task<bool> DeleteSpecialCodeId(Guid id);
         public Task<SpecialCodeDTO> GetSpecialCodeById(Guid Id);
     }

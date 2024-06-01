@@ -15,7 +15,7 @@ namespace OnMuhasebe.Domain.Models
 
         public Product? Product { get; set; }
 
-        public PriceType PriceType { get; set; }
+        public string PriceType { get; set; }
 
         public decimal PriceValue { get; set; }
 

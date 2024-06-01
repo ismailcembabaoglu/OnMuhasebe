@@ -15,22 +15,21 @@ namespace OnMuhasebe.Domain.Models
         public bool IsActive { get; set; }
         public string ProductName { get; set; }
         public string ProductNumber { get; set; }
-        public string Barcode { get; set; }
+        public string? Barcode { get; set; }
         public Guid UnitId { get; set; }
         public Unit? Unit { get; set; }
-
         public Guid ProductGroupId { get; set; }
         public ProductGroup? ProductGroup { get; set; }
-        public string Brand { get; set; }
-        public string Model { get; set; }
-        public ICollection<SpecialCode>? SpecialCodes { get; set; }
+        public string? ProductUnderGroupName { get; set; }
+        public string? Brand { get; set; }
+        public string? Model { get; set; }
+        public ICollection<SpecialCode>? SpecialCodes { get; set; }//burası ürün eklemede
         public ICollection<Discount>? Discounts { get; set; }
         public ICollection<FastSale>? FastSales { get; set; }
-        public string GuaranteePeriod { get; set; }
-        public string Producer { get; set; }
-
-        public ICollection<Price>? Prices { get; set; }
+        public string? GuaranteePeriod { get; set; }
+        public string? Producer { get; set; }
+        public ICollection<Price>? Prices { get; set; }//burası ürün eklemede
         public ICollection<ProductMotion>? ProductMotions { get; set; }
-        public string Photo { get; set; }
+        public string? Photo { get; set; }
     }
 }

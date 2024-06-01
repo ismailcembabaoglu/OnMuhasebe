@@ -9,17 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{BEAD0BA6-410F-4258-A7E0-C2ED22CCD54A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMuhasebe.Domain", "Core\OnMuhasebe.Domain\OnMuhasebe.Domain.csproj", "{3C65CC65-9E14-4B8E-859D-07A6EDC6DDC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMuhasebe.Domain", "Core\OnMuhasebe.Domain\OnMuhasebe.Domain.csproj", "{3C65CC65-9E14-4B8E-859D-07A6EDC6DDC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMuhasebe.Application", "Core\OnMuhasebe.Application\OnMuhasebe.Application.csproj", "{782B12FF-F039-4D22-8765-F187B1395696}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMuhasebe.Application", "Core\OnMuhasebe.Application\OnMuhasebe.Application.csproj", "{782B12FF-F039-4D22-8765-F187B1395696}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMuhasebe.Infrastructure", "OnMuhasebe.Infrastructure\OnMuhasebe.Infrastructure.csproj", "{57AD254F-055B-43F4-89F1-76F06CBA982F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMuhasebe.Infrastructure", "OnMuhasebe.Infrastructure\OnMuhasebe.Infrastructure.csproj", "{57AD254F-055B-43F4-89F1-76F06CBA982F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMuhasebe.Persistence", "Infrastructure\OnMuhasebe.Persistence\OnMuhasebe.Persistence.csproj", "{0CD6F9A5-6D6D-4EB5-8D80-49ED3D8E84B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMuhasebe.Persistence", "Infrastructure\OnMuhasebe.Persistence\OnMuhasebe.Persistence.csproj", "{0CD6F9A5-6D6D-4EB5-8D80-49ED3D8E84B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMuhasebe.Server", "OnMuhasebe\Server\OnMuhasebe.Server.csproj", "{FA41CE0D-7A49-41D9-BA93-AF2BD4C7E158}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMuhasebe.Server", "OnMuhasebe\Server\OnMuhasebe.Server.csproj", "{FA41CE0D-7A49-41D9-BA93-AF2BD4C7E158}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnMuhasebe.Client", "OnMuhasebe\Client\OnMuhasebe.Client.csproj", "{D18D916B-C4CE-4170-9759-E925BA7FCA2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnMuhasebe.Client", "OnMuhasebe\Client\OnMuhasebe.Client.csproj", "{D18D916B-C4CE-4170-9759-E925BA7FCA2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

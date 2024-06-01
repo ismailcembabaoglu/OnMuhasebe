@@ -50,12 +50,12 @@ namespace OnMuhasebe.Server.Controllers
                 Value = await specialCodeService.DeleteSpecialCodeId(Id)
             };
         }
-        [HttpGet("SpecialCodeById/{Id}")]
-        public async Task<ServiceResponse<SpecialCodeDTO>> GetSpecialCodeById(Guid Id)
+        [HttpGet("SpecialCodeProductById/{productId}")]
+        public async Task<ServiceResponse<List<SpecialCodeDTO>>> GetSpecialCodeProductById(Guid productId)
         {
-            return new ServiceResponse<SpecialCodeDTO>()
+            return new ServiceResponse<List<SpecialCodeDTO>>()
             {
-                Value = await specialCodeService.GetSpecialCodeById(Id)
+                Value = await specialCodeService.GetSpecialCodeProductById(productId)
             };
         }
     }

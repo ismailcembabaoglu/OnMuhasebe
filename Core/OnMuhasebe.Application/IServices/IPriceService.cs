@@ -14,5 +14,6 @@ namespace OnMuhasebe.Application.IServices
         public Task<PriceDTO> UpdatePrice(PriceDTO Price);
         public Task<bool> DeletePriceId(Guid id);
         public Task<PriceDTO> GetPriceById(Guid Id);
+        public Task<List<PriceDTO>> GetPriceProductById(Guid productId);
     }
 }

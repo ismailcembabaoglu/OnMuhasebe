@@ -52,7 +52,7 @@ namespace OnMuhasebe.Persistence.Services
 
         public async Task<CustomerDTO> GetCustomerById(Guid Id)
         {
-            var dbCustomer = await context.Customers.Include(c => c.SpecialCode)
+            var dbCustomer = await context.Customers
                 .Where(c => c.Id == Id)
                 .ProjectTo<CustomerDTO>(mapper.ConfigurationProvider).FirstOrDefaultAsync();
             if (dbCustomer == null)
@@ -62,14 +62,14 @@ namespace OnMuhasebe.Persistence.Services
 
         public async Task<List<CustomerDTO>> GetCustomers()
         {
-            var dbCustomer = await context.Customers.Include(c => c.SpecialCode)
+            var dbCustomer = await context.Customers
                .ProjectTo<CustomerDTO>(mapper.ConfigurationProvider).ToListAsync();
             return dbCustomer;
         }
 
         public async Task<CustomerDTO> UpdateCustomer(CustomerDTO Customer)
         {
-            var dbCustomer = await context.Customers.Include(c => c.SpecialCode)
+            var dbCustomer = await context.Customers
                .Where(c => c.Id == Customer.Id).FirstOrDefaultAsync();
 
             if (dbCustomer == null)

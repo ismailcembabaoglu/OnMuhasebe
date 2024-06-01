@@ -210,9 +210,6 @@ namespace OnMuhasebe.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<Guid>("SpecialCodeId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("TaxNumber")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -229,8 +226,6 @@ namespace OnMuhasebe.Persistence.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.HasIndex("CustomerGroupId");
-
-                    b.HasIndex("SpecialCodeId");
 
                     b.ToTable("Customers");
                 });
@@ -457,6 +452,35 @@ namespace OnMuhasebe.Persistence.Migrations
                         .HasColumnType("numeric(18,2)");
 
                     b.ToTable("Kdvs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a9fd0162-8f72-4d24-accc-1b0c1ec494b4"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7754),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            KdvName = "%18",
+                            KdvRatio = 18m
+                        },
+                        new
+                        {
+                            Id = new Guid("0924a136-4b38-42eb-ad09-7b92f1303b8a"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7764),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            KdvName = "%20",
+                            KdvRatio = 20m
+                        },
+                        new
+                        {
+                            Id = new Guid("71cc7301-cae0-4937-a1b3-b7697291a176"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7774),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            KdvName = "%0",
+                            KdvRatio = 0m
+                        });
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.PaymentType", b =>
@@ -486,8 +510,9 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.Property<Guid>("KdvId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("PriceType")
-                        .HasColumnType("integer");
+                    b.Property<string>("PriceType")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<decimal>("PriceValue")
                         .HasPrecision(18, 2)
@@ -508,30 +533,24 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasBaseType("OnMuhasebe.Domain.Models.BaseModels.BaseModel");
 
                     b.Property<string>("Barcode")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Brand")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("GuaranteePeriod")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Model")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Photo")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Producer")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("ProductGroupId")
@@ -543,6 +562,9 @@ namespace OnMuhasebe.Persistence.Migrations
 
                     b.Property<string>("ProductNumber")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProductUnderGroupName")
                         .HasColumnType("text");
 
                     b.Property<Guid>("UnitId")
@@ -564,6 +586,16 @@ namespace OnMuhasebe.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.ToTable("ProductGroups");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3342d171-222f-48bd-901d-17fb7e48d4eb"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7658),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            ProductGroupName = "Grupsuz"
+                        });
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.ProductMotion", b =>
@@ -630,6 +662,17 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasIndex("ProductGroupId");
 
                     b.ToTable("ProductUnderGroups");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c340b1d5-f2fe-4f0c-9d4f-511f78a8643c"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7689),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            ProductGroupId = new Guid("3342d171-222f-48bd-901d-17fb7e48d4eb"),
+                            ProductUnderGroupName = "Grupsuz"
+                        });
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.SafeBox", b =>
@@ -720,6 +763,32 @@ namespace OnMuhasebe.Persistence.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.ToTable("Units");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bd703370-8093-4aa3-9da6-72a1b4a701a5"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7707),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            UnitName = "ADET"
+                        },
+                        new
+                        {
+                            Id = new Guid("80b9d90c-c1bb-41b5-9ff3-2e0ca28d64fa"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7718),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            UnitName = "KG"
+                        },
+                        new
+                        {
+                            Id = new Guid("b08f5c83-252f-4629-9ec0-65eadfe4c0f1"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7727),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            UnitName = "Paket"
+                        });
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.User", b =>
@@ -750,6 +819,32 @@ namespace OnMuhasebe.Persistence.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("822e044b-5656-4b44-ad0f-01d7761e2cbe"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7569),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            Email = "icb1742@gmail.com",
+                            FirstName = "Süper",
+                            IsActive = true,
+                            LastName = "Admin",
+                            Password = "17421742"
+                        },
+                        new
+                        {
+                            Id = new Guid("c326ee05-4878-4219-958d-ad3caefa4e11"),
+                            CreateDate = new DateTime(2024, 6, 1, 15, 29, 9, 473, DateTimeKind.Utc).AddTicks(7630),
+                            CreatedUser = "Admin",
+                            IsDeleted = false,
+                            Email = "eagledenizcilik@outlook.com.tr",
+                            FirstName = "Alican",
+                            IsActive = true,
+                            LastName = "Kartal",
+                            Password = "Eagle0204."
+                        });
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Voucher", b =>
@@ -891,15 +986,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("OnMuhasebe.Domain.Models.SpecialCode", "SpecialCode")
-                        .WithMany("Customers")
-                        .HasForeignKey("SpecialCodeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("CustomerGroup");
-
-                    b.Navigation("SpecialCode");
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.CustomerUnderGroup", b =>
@@ -1174,11 +1261,6 @@ namespace OnMuhasebe.Persistence.Migrations
             modelBuilder.Entity("OnMuhasebe.Domain.Models.SafeBox", b =>
                 {
                     b.Navigation("SafeBoxMotions");
-                });
-
-            modelBuilder.Entity("OnMuhasebe.Domain.Models.SpecialCode", b =>
-                {
-                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Unit", b =>

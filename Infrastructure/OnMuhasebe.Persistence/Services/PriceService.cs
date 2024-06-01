@@ -60,6 +60,14 @@ namespace OnMuhasebe.Persistence.Services
             return dbPrice;
         }
 
+        public async Task<List<PriceDTO>> GetPriceProductById(Guid productId)
+        {
+            var dbPrice = await context.Prices.Include(c => c.Kdv)
+        .Include(c => c.Product).Where(c => c.ProductId == productId)
+        .ProjectTo<PriceDTO>(mapper.ConfigurationProvider).ToListAsync();
+            return dbPrice;
+        }
+
         public async Task<List<PriceDTO>> GetPrices()
         {
             var dbPrice = await context.Prices.Include(c => c.Kdv)

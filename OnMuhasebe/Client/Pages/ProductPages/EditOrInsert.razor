@@ -1,0 +1,564 @@
+﻿@page "/products/add"
+@page "/products/edit/{ProductId:guid}"
+
+@using Morris.Blazor.FluentValidation
+@using Morris.Blazor.Validation
+@using OnMuhasebe.Application.CustomExceptions
+@using OnMuhasebe.Application.DTOs
+@using OnMuhasebe.Application.Validators
+@using OnMuhasebe.Client.Utils
+<RadzenTabs @bind-SelectedIndex=@selectedIndex>
+    <Tabs>
+        <RadzenTabsItem Text="Ürün Bilgileri">
+            <EditForm Model="@productModel" OnValidSubmit="SubmitForm">
+                <Morris.Blazor.Validation.Validate ValidationProperties=@(ValidationProperties.Set.FluentValidator<ProductValidator>()) OnTransformModel=OnTransformModel />
+
+                <RadzenRow Gap="1rem">
+                    <RadzenColumn>
+                        <RadzenStack>
+                            <RadzenFormField AllowFloatingLabel="false" Text="Fotoğraf">
+                                <Start>
+                                    <RadzenIcon Icon="account_circle" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenFileInput @bind-Value=@productModel.Photo @bind-FileName=@fileName @bind-FileSize=@fileSize TValue="string" class="w-100" />
+                                </ChildContent>
+
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.Photo)" />
+                            <RadzenFormField AllowFloatingLabel="false" Text="Ürün Adı">
+                                <Start>
+                                    <RadzenIcon Icon="account_circle" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextBox @bind-Value="productModel.ProductName" Name="ProductName" />
+                                </ChildContent>
+
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.ProductName)" />
+                            <RadzenFormField AllowFloatingLabel="false" Text="Barkodu">
+                                <Start>
+                                    <RadzenIcon Icon="account_balance_wallet" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextBox @bind-Value="productModel.Barcode" Name="Barcode" />
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.Barcode)" />
+                            <RadzenFormField AllowFloatingLabel="false" Text="Ürün Kodu">
+                                <Start>
+                                    <RadzenIcon Icon="flight_land" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextBox @bind-Value="productModel.ProductNumber" Name="ProductNumber" />
+
+                                </ChildContent>
+
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.ProductNumber)" />
+                            <RadzenFormField AllowFloatingLabel="false" Text="Üretici">
+                                <Start>
+                                    <RadzenIcon Icon="flight_land" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextBox @bind-Value="productModel.Producer" Name="Producer" />
+
+                                </ChildContent>
+
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.Producer)" />
+                        </RadzenStack>
+                    </RadzenColumn>
+                    <RadzenColumn>
+                        <RadzenStack>
+                            <RadzenFormField Style="width:10%;" AllowFloatingLabel="false" Text="Aktif">
+                                <ChildContent>
+                                    <RadzenSwitch Style="width:10%;height:30px" @bind-Value="productModel.IsActive" Name="IsActive" />
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.IsActive)" />
+
+                            <RadzenFormField AllowFloatingLabel="false" Text="Grubu">
+                                <Start>
+                                    <RadzenIcon Icon="flight_takeoff" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenDropDown @bind-Value="productModel.ProductGroupId" AllowClear="true" Placeholder="seçim yapınız" Data="@productGroups" Style="width: 100%;" TextProperty="ProductGroupName" ValueProperty="Id" Name="Name"></RadzenDropDown>
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.UnitId)" />
+
+                            <RadzenFormField AllowFloatingLabel="false" Text="Birim">
+                                <Start>
+                                    <RadzenIcon Icon="flight_takeoff" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenDropDown @bind-Value="productModel.UnitId" AllowClear="true" Placeholder="seçim yapınız" Data="@units" Style="width: 100%;" TextProperty="UnitName" ValueProperty="Id" Name="UnitName"></RadzenDropDown>
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.ProductGroupId)" />
+                            <RadzenFormField AllowFloatingLabel="false" Text="Markası">
+                                <Start>
+                                    <RadzenIcon Icon="flight_takeoff" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextBox @bind-Value="productModel.Brand" Name="Brand" />
+
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.Brand)" />
+                            <RadzenFormField AllowFloatingLabel="false" Text="Modeli">
+                                <Start>
+                                    <RadzenIcon Icon="flight_takeoff" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextBox @bind-Value="productModel.Model" Name="Model" />
+
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.Model)" />
+                            <RadzenFormField AllowFloatingLabel="false" Text="Garanti Süresi">
+                                <Start>
+                                    <RadzenIcon Icon="flight_takeoff" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextBox @bind-Value="productModel.GuaranteePeriod" Name="GuaranteePeriod" />
+
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.GuaranteePeriod)" />
+
+                            @*     <RadzenFormField AllowFloatingLabel="false" Text="Dönüş Uçuş No">
+                            <Start>
+                            <RadzenIcon Icon="flight_takeoff" />
+                            </Start>
+                            <ChildContent>
+                            <RadzenDropDown @bind-Value="productModel.productType" AllowClear="true" Placeholder="seçim yapınız" Data="@nameValues" Style="width: 100%;" TextProperty="Name" ValueProperty="Name" Name="Name"></RadzenDropDown>
+                            </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.productType)" /> *@
+                            <RadzenFormField AllowFloatingLabel="false" Text="Not">
+                                <Start>
+                                    <RadzenIcon Icon="description" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextArea Placeholder="Not giriniz" @bind-Value="productModel.Decription" class="w-100" aria-label="TextArea with placeholder" />
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.Decription)" />
+                        </RadzenStack>
+
+
+                    </RadzenColumn>
+                </RadzenRow>
+                <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+                    <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Icon="save" Text="Kaydet" />
+                    <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Large" Icon="cancel" Text="Geri Dön" Click="@goBackproductList" />
+                </RadzenStack>
+            </EditForm>
+
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Fiyat Bilgileri" Disabled=disabled>
+            <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Fiyat Ekle" Click="@InsertRowPrice" Disabled=@(PriceToInsert != null || PriceToUpdate != null) />
+            <RadzenDataGrid @ref="priceGrid" AllowAlternatingRows="false" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" EditMode="DataGridEditMode.Single"
+                            Data="@priceList" TItem="PriceDTO" RowUpdate="@OnUpdateRowPrice" RowCreate="@OnCreateRowPrice" Sort="@ResetPrice" Page="@ResetPrice" Filter="@ResetPrice" FilterMode="FilterMode.Simple" ColumnWidth="200px">
+                <Columns>
+                    <RadzenDataGridColumn TItem="PriceDTO" Context="PriceDTO" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="156px">
+                        <Template Context="PriceDTO">
+                            <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRowPrice(PriceDTO))" @onclick:stopPropagation="true">
+                            </RadzenButton>
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRowPrice(PriceDTO))" @onclick:stopPropagation="true">
+                            </RadzenButton>
+                        </Template>
+                        <EditTemplate Context="PriceDTO">
+                            <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRowPrice(PriceDTO))">
+                            </RadzenButton>
+                            <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEditPrice(PriceDTO))">
+                            </RadzenButton>
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRowPrice(PriceDTO))">
+                            </RadzenButton>
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="PriceDTO" Property="PriceType" Title="Fiyat Tipi">
+                        <EditTemplate Context="PriceDTO">
+                            <RadzenDropDown @bind-Value="PriceDTO.PriceType" AllowClear="true" Placeholder="seçim yapınız" Data="@priceTypes" Style="width: 100%;" TextProperty="PriceTypeName" ValueProperty="PriceTypeName" Name="KdvName"></RadzenDropDown>
+
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="PriceDTO" Property="PriceValue" Title="Fiyat">
+                        <EditTemplate Context="PriceDTO">
+                            <RadzenNumeric @bind-Value="PriceDTO.PriceValue" Style="width:100%; display: block" Name="PriceValue" />
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="PriceDTO" Property="IsDefault" Title="Varsayılan F.">
+                        <EditTemplate Context="PriceDTO">
+                            <RadzenSwitch @bind-Value="PriceDTO.IsDefault" Style="width:100%; display: block" Name="IsDefault" />
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="PriceDTO" Property="KdvName" Title="Kdv T.">
+                        <EditTemplate Context="PriceDTO">
+                            <RadzenDropDown @bind-Value="PriceDTO.KdvId" AllowClear="true" Placeholder="seçim yapınız" Data="@kdvs" Style="width: 100%;" TextProperty="KdvName" ValueProperty="Id" Name="KdvName"></RadzenDropDown>
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+                    @*    <RadzenDataGridColumn TItem="PriceDTO" Property="PhonepriceType" Title="Adres Tipi">
+                    <EditTemplate Context="PriceDTO">
+                    <RadzenDropDown @bind-Value="PriceDTO.PhonepriceType" AllowClear="true" Placeholder="seçim yapınız" Data="@phoneTypes" Style="width:100%; display: block" TextProperty="Name" ValueProperty="Name" Name="Name" />
+                    <RadzenTextArea Placeholder="Not giriniz" @bind-Value="PriceDTO.Fullprice" Style="width:100%; display: block" Name="Fullprice" />
+                    <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" />
+                    </EditTemplate>
+                    </RadzenDataGridColumn>
+                    *@
+
+                </Columns>
+            </RadzenDataGrid>
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Özel Kod Tanımları" Disabled=disabled>
+            <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Özel Kod Ekle" Click="@InsertRowSpecial" Disabled=@(SpecialCodeToInsert != null || SpecialCodeToUpdate != null) />
+            <RadzenDataGrid @ref="specialCodeGrid" AllowAlternatingRows="false" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" EditMode="DataGridEditMode.Single"
+                            Data="@specialCodeList" TItem="SpecialCodeDTO" RowUpdate="@OnUpdateRowSpecial" RowCreate="@OnCreateRowSpecial" Sort="@ResetSpecial" Page="@ResetSpecial" Filter="@ResetSpecial" FilterMode="FilterMode.Simple" ColumnWidth="200px">
+                <Columns>
+                    <RadzenDataGridColumn TItem="SpecialCodeDTO" Context="PriceDTO" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="156px">
+                        <Template Context="SpecialCodeDTO">
+                            <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRowSpecial(SpecialCodeDTO))" @onclick:stopPropagation="true">
+                            </RadzenButton>
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRowSpecial(SpecialCodeDTO))" @onclick:stopPropagation="true">
+                            </RadzenButton>
+                        </Template>
+                        <EditTemplate Context="SpecialCodeDTO">
+                            <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRowSpecial(SpecialCodeDTO))">
+                            </RadzenButton>
+                            <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEditSpecial(SpecialCodeDTO))">
+                            </RadzenButton>
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRowSpecial(SpecialCodeDTO))">
+                            </RadzenButton>
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="SpecialCodeDTO" Property="SpecialName" Title="Özel Kod Adı">
+                        <EditTemplate Context="SpecialCodeDTO">
+                            <RadzenTextBox @bind-Value="SpecialCodeDTO.SpecialName" Name="SpecialName" Style="width:100%; display: block" />
+                        </EditTemplate>
+                    </RadzenDataGridColumn>
+
+                </Columns>
+   
+            </RadzenDataGrid>
+ 
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
+@code {
+    [Parameter]
+    public Guid ProductId { get; set; }
+
+    [Inject]
+    public HttpClient HttpClient { get; set; }
+
+    [Inject]
+    public ModalManager ModalManager { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    [Inject]
+    ILocalStorageService localStorageService { get; set; }
+    string fileName;
+    long? fileSize;
+    private ProductDTO productModel = new ProductDTO();
+    RadzenDataGrid<PriceDTO> priceGrid;
+    RadzenDataGrid<SpecialCodeDTO> specialCodeGrid;
+    private PriceDTO priceModel = new PriceDTO();
+    private SpecialCodeDTO specialCodeModel = new SpecialCodeDTO();
+    protected IEnumerable<PriceDTO> priceList;
+    protected IEnumerable<SpecialCodeDTO> specialCodeList;
+    private List<ProductGroupDTO>? productGroups = new List<ProductGroupDTO>();
+    private List<UnitDTO>? units = new List<UnitDTO>();
+    private List<KdvDTO>? kdvs = new List<KdvDTO>();
+    private List<PriceTypesDTO>? priceTypes = new List<PriceTypesDTO>();
+    int selectedIndex = 0;
+    bool disabled = true;
+    PriceDTO PriceToInsert;
+    PriceDTO PriceToUpdate;
+    SpecialCodeDTO SpecialCodeToInsert;
+    SpecialCodeDTO SpecialCodeToUpdate;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            productGroups = await HttpClient.GetServiceResponseAsync<List<ProductGroupDTO>>("api/productGroup/productGroups/", token, true);
+            units = await HttpClient.GetServiceResponseAsync<List<UnitDTO>>("api/unit/units/", token, true);
+            if (ProductId != null && ProductId != Guid.Empty)
+            {
+
+
+
+                productModel = await HttpClient.GetServiceResponseAsync<ProductDTO>("api/product/productById/" + ProductId, token, true);
+                disabled = false;
+                if (!disabled)
+                {
+                    kdvs = await HttpClient.GetServiceResponseAsync<List<KdvDTO>>("api/Kdv/kdvs", token, true);
+                    if (priceTypes!=null)
+                    {
+                        priceTypes.Add(new PriceTypesDTO { PriceTypeName = "Alış" });
+                        priceTypes.Add(new PriceTypesDTO { PriceTypeName = "Satış" });
+                    }
+         
+                    priceList = await HttpClient.GetServiceResponseAsync<List<PriceDTO>>("api/price/PriceProductById/" + ProductId, token, true);
+                    specialCodeList = await HttpClient.GetServiceResponseAsync<List<SpecialCodeDTO>>("api/specialcode/SpecialCodeProductById/" + ProductId, token, true);
+                }
+
+            }
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+    }
+    async Task SubmitForm(EditContext editContext)
+    {
+        if (editContext.Validate())
+        {
+            await editOrUpdate((ProductDTO)editContext.Model);
+        }
+    }
+    async Task editOrUpdate(ProductDTO ProductDTO)
+    {
+
+        try
+        {
+
+            String url = "api/product/create";
+            productModel = ProductDTO;
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            // Update
+            if (ProductId != null && ProductId != Guid.Empty)
+            {
+                url = "api/product/update";
+                productModel.UpdatedDate = DateTime.Now;
+                productModel.UpdatedUser = await localStorageService.GetItemAsStringAsync("email");
+                productModel = await HttpClient.PostGetServiceResponseAsync<ProductDTO, ProductDTO>(url, productModel, token, true);
+            }
+            else
+            {
+                productModel.CreateDate = DateTime.Now;
+                productModel.CreatedUser = await localStorageService.GetItemAsStringAsync("email");
+                productModel = await HttpClient.PostGetServiceResponseAsync<ProductDTO, ProductDTO>(url, productModel, token, true);
+                ProductId = productModel.Id;
+                NavigationManager.NavigateTo($"/products/edit/{ProductId}", true);
+
+
+            }
+
+
+
+
+
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.InnerException.Message);
+        }
+        catch (Exception ex)
+        {
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+
+
+
+    }
+    private object OnTransformModel(object model)
+    {
+        // Confirm that the model is of the expected type
+        // Do transformations here
+        // return the transformed model
+        return model;
+    }
+    void goBackproductList()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
+
+    async Task DeleteRowPrice(PriceDTO price)
+    {
+        ResetPrice();
+
+
+        string token = await localStorageService.GetItemAsStringAsync("token");
+        bool deleted = await HttpClient.PostGetServiceResponseAsync<bool, Guid>("api/price/Delete", price.Id, token, true);
+        priceList = await HttpClient.GetServiceResponseAsync<List<PriceDTO>>("api/price/PriceProductById/" + ProductId, token, true);
+        await priceGrid.Reload();
+        StateHasChanged();
+
+    }
+    void CancelEditPrice(PriceDTO price)
+    {
+        ResetPrice();
+
+        priceGrid.CancelEditRow(price);
+    }
+    async Task SaveRowPrice(PriceDTO price)
+    {
+        await priceGrid.UpdateRow(price);
+        PriceToInsert = null;
+        await priceGrid.Reload();
+        StateHasChanged();
+
+    }
+    async void OnUpdateRowPrice(PriceDTO price)
+    {
+        try
+        {
+            ResetPrice();
+            price.ProductId = ProductId;
+            price.UpdatedDate = DateTime.Now;
+            price.UpdatedUser = await localStorageService.GetItemAsStringAsync("email");
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            priceModel = await HttpClient.PostGetServiceResponseAsync<PriceDTO, PriceDTO>("api/price/update", price, token, true);
+            priceList = await HttpClient.GetServiceResponseAsync<List<PriceDTO>>("api/price/PriceProductById/" + ProductId, token, true);
+            await priceGrid.Reload();
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+
+    }
+    async Task EditRowPrice(PriceDTO price)
+    {
+        PriceToUpdate = price;
+        await priceGrid.EditRow(price);
+    }
+    void ResetPrice()
+    {
+        PriceToInsert = null;
+        PriceToUpdate = null;
+    }
+    async Task InsertRowPrice()
+    {
+        PriceToInsert = new PriceDTO();
+        await priceGrid.InsertRow(PriceToInsert);
+        StateHasChanged();
+    }
+    async void OnCreateRowPrice(PriceDTO price)
+    {
+        try
+        {
+            price.ProductId = ProductId;
+            price.CreateDate = DateTime.Now;
+            price.CreatedUser = await localStorageService.GetItemAsStringAsync("email");
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            priceModel = await HttpClient.PostGetServiceResponseAsync<PriceDTO, PriceDTO>("api/price/create", price, token, true);
+            PriceToInsert = null;
+            priceList = await HttpClient.GetServiceResponseAsync<List<PriceDTO>>("api/price/PriceProductById/" + ProductId, token, true);
+            await priceGrid.Reload();
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+
+        // NavigationManager.NavigateTo("/products/edit/"+ProductId);
+    }
+
+    async Task DeleteRowSpecial(SpecialCodeDTO special)
+    {
+        ResetSpecial();
+
+
+        string token = await localStorageService.GetItemAsStringAsync("token");
+        bool deleted = await HttpClient.PostGetServiceResponseAsync<bool, Guid>("api/specialcode/Delete", special.Id, token, true);
+        specialCodeList = await HttpClient.GetServiceResponseAsync<List<SpecialCodeDTO>>("api/specialcode/specialcodeProductById/" + ProductId, token, true);
+        await specialCodeGrid.Reload();
+        StateHasChanged();
+
+    }
+    void CancelEditSpecial(SpecialCodeDTO special)
+    {
+        ResetSpecial();
+
+        specialCodeGrid.CancelEditRow(special);
+    }
+    async Task SaveRowSpecial(SpecialCodeDTO special)
+    {
+        await specialCodeGrid.UpdateRow(special);
+        SpecialCodeToInsert = null;
+        await specialCodeGrid.Reload();
+        StateHasChanged();
+
+    }
+    async void OnUpdateRowSpecial(SpecialCodeDTO special)
+    {
+        try
+        {
+            ResetSpecial();
+            special.ProductId = ProductId;
+            special.UpdatedDate = DateTime.Now;
+            special.UpdatedUser = await localStorageService.GetItemAsStringAsync("email");
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            specialCodeModel = await HttpClient.PostGetServiceResponseAsync<SpecialCodeDTO, SpecialCodeDTO>("api/SpecialCode/update", special, token, true);
+            specialCodeList = await HttpClient.GetServiceResponseAsync<List<SpecialCodeDTO>>("api/SpecialCode/SpecialCodeProductById/" + ProductId, token, true);
+            await priceGrid.Reload();
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+
+    }
+    async Task EditRowSpecial(SpecialCodeDTO special)
+    {
+        SpecialCodeToUpdate = special;
+        await specialCodeGrid.EditRow(special);
+    }
+    void ResetSpecial()
+    {
+        SpecialCodeToInsert = null;
+        SpecialCodeToUpdate = null;
+    }
+    async Task InsertRowSpecial()
+    {
+        SpecialCodeToInsert = new SpecialCodeDTO();
+        await specialCodeGrid.InsertRow(SpecialCodeToInsert);
+        StateHasChanged();
+    }
+    async void OnCreateRowSpecial(SpecialCodeDTO special)
+    {
+        try
+        {
+            special.ProductId = ProductId;
+            special.CreateDate = DateTime.Now;
+            special.CreatedUser = await localStorageService.GetItemAsStringAsync("email");
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            specialCodeModel = await HttpClient.PostGetServiceResponseAsync<SpecialCodeDTO, SpecialCodeDTO>("api/SpecialCode/create", special, token, true);
+            SpecialCodeToInsert = null;
+            specialCodeList = await HttpClient.GetServiceResponseAsync<List<SpecialCodeDTO>>("api/SpecialCode/SpecialCodeProductById/" + ProductId, token, true);
+            await specialCodeGrid.Reload();
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+
+        // NavigationManager.NavigateTo("/products/edit/"+ProductId);
+    }
+}
+

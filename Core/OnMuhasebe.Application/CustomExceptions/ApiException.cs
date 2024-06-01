@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Application.CustomExceptions
 {
-    public class ApiException
+    public class ApiException : Exception
     {
+        public ApiException(String Message, Exception InnerException) : base(Message, InnerException)
+        {
+
+        }
+
+        public ApiException(String Message) : base(Message)
+        {
+
+        }
     }
 }

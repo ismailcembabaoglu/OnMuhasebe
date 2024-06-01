@@ -17,6 +17,8 @@ namespace OnMuhasebe.Persistence.Extensions
             service.AddScoped<IBankService, BankService>();
             service.AddScoped<IBankMotionService, BankMotionService>();
             service.AddScoped<ICustomerService, CustomerService>();
+            service.AddScoped<ICustomerGroupService, CustomerGroupService>();
+            service.AddScoped<ICustomerUnderGroupService, CustomerUnderGroupService>();
             service.AddScoped<IDiscountService, DiscountService>();
             service.AddScoped<IEmployeeMotionService, EmployeeMotionService>();
             service.AddScoped<IEmployeeService, EmployeeService>();
