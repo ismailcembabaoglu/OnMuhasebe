@@ -11,6 +11,7 @@ namespace OnMuhasebe.Application.DTOs
     public class ProductDTO: BaseModelDTO
     {
         public bool IsActive { get; set; }
+        public string Photo { get; set; }
         public string ProductNumber { get; set; }
         public string ProductName { get; set; }
         public string? Barcode { get; set; }
@@ -18,7 +19,6 @@ namespace OnMuhasebe.Application.DTOs
         public string? Model { get; set; }
         public string? GuaranteePeriod { get; set; }
         public string? Producer { get; set; }
-        public string Photo { get; set; }
         public Guid ProductGroupId { get; set; }
         public string? ProductGroupName { get; set; }
         public string? ProductUnderGroupName { get; set; }

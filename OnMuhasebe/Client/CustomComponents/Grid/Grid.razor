@@ -1,0 +1,53 @@
+﻿@typeparam TItem
+<RadzenDataGrid TItem="TItem" AllowFiltering="true"
+                FilterMode="FilterMode.Simple"
+                ShowCellDataAsTooltip="true"
+                ColumnWidth="200px"
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                AllowColumnPicking="true"
+                AllowPaging="true" PageSize="10"
+                AllowSorting="true"
+                Data="@Data">
+    <Columns>
+        @foreach (var column in Columns)
+        {
+            if (column.Property.Contains("Id"))
+                continue;
+            if (column.Property == "Photo")
+            {
+                @UIWithT2(column)
+            }
+            else
+            {
+                @UIWithT(column)
+            }
+        }
+        <RadzenDataGridColumn TItem="TItem" Title="İşlem">
+            <Template Context="product">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => OnEditAction.InvokeAsync(((dynamic)product).Id))">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => OnDeleteAction.InvokeAsync(((dynamic)product).Id))">
+                </RadzenButton>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    [Parameter]
+    public IEnumerable<TItem> Data { get; set; }
+
+    [Parameter]
+    public List<RadzenDataGridColumn<TItem>> Columns { get; set; }
+
+    [Parameter]
+    public RenderFragment<RadzenDataGridColumn<TItem>> UIWithT { get; set; }
+
+    [Parameter]
+    public RenderFragment<RadzenDataGridColumn<TItem>>? UIWithT2 { get; set; }
+    [Parameter]
+    public EventCallback<Guid> OnEditAction { get; set; }
+
+    [Parameter]
+    public EventCallback<Guid> OnDeleteAction { get; set; }
+}

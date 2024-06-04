@@ -1,4 +1,4 @@
-﻿@page "/productlist"
+﻿@page "/customerlist"
 @using Newtonsoft.Json
 @using OnMuhasebe.Application.CustomExceptions
 @using OnMuhasebe.Application.DTOs
@@ -7,9 +7,9 @@
 @using OnMuhasebe.Client.CustomComponents.Grid
 @using OnMuhasebe.Client.Utils
 
-
 <RadzenButton Shade="Shade.Dark" Click=goCreateUserPage Icon="add" Variant="Variant.Flat" Text="Yeni Ürün Ekle" ButtonStyle="ButtonStyle.Success" />
-<Grid Data="ProductLists" TItem="ProductDTO" Columns="Columns" OnEditAction="goUpdateUserPage" OnDeleteAction="DeleteUser" UIWithT="RenderColumn" UIWithT2="PhotoTemplateColumn"></Grid>
+<Grid Columns="Columns" Data="CustomerLists" UIWithT="RenderColumn" UIWithT2="RenderColumn" TItem="CustomerDTO" OnDeleteAction="DeleteUser" OnEditAction="goUpdateUserPage"/>
+
 @code {
     [Inject]
     public HttpClient Client { get; set; }
@@ -21,35 +21,26 @@
     NavigationManager NavigationManager { get; set; }
     [Inject]
     ILocalStorageService localStorageService { get; set; }
-    private List<ColumnConfig> columnConfigs;
-    List<RadzenDataGridColumn<ProductDTO>> Columns = new List<RadzenDataGridColumn<ProductDTO>>();
-    DynamicGrid<ProductDTO> gridList = new DynamicGrid<ProductDTO>();
 
-    protected IEnumerable<ProductDTO> ProductLists;
-    private RenderFragment<RadzenDataGridColumn<ProductDTO>> RenderColumn = (column) =>@<RadzenDataGridColumn TItem="ProductDTO" Property="@(column.Property)" Title="@(column.Title)">
-
-    </RadzenDataGridColumn>;
-    private RenderFragment<RadzenDataGridColumn<ProductDTO>> PhotoTemplateColumn = (column) =>@<RadzenDataGridColumn TItem="ProductDTO" Property="@(column.Property)" Title="@(column.Title)">
-
-        <Template Context="context">
-            <RadzenImage Path="@context.Photo" class="rz-gravatar" />
-        </Template>
+    public List<ColumnConfig> columnConfigs;
+    List<RadzenDataGridColumn<CustomerDTO>> Columns = new List<RadzenDataGridColumn<CustomerDTO>>();
+    DynamicGrid<CustomerDTO> gridList = new DynamicGrid<CustomerDTO>();
+    protected IEnumerable<CustomerDTO>CustomerLists;
+    private RenderFragment<RadzenDataGridColumn<CustomerDTO>> RenderColumn = (column) =>@<RadzenDataGridColumn TItem="CustomerDTO" Property="@(column.Property)" Title="@(column.Title)">
 
     </RadzenDataGridColumn>;
     protected async override Task OnInitializedAsync()
     {
         await LoadList();
     }
-
-
     protected void goCreateUserPage()
     {
-        NavigationManager.NavigateTo("/products/add");
+        NavigationManager.NavigateTo("/customers/add");
     }
 
     protected void goUpdateUserPage(Guid UserId)
     {
-        NavigationManager.NavigateTo("/products/edit/" + UserId);
+        NavigationManager.NavigateTo("/customers/edit/" + UserId);
     }
 
     protected async void DeleteUser(Guid Id)
@@ -61,13 +52,13 @@
         try
         {
             string token = await localStorageService.GetItemAsStringAsync("token");
-            bool deleted = await Client.PostGetServiceResponseAsync<bool, Guid>("api/Product/Delete", Id, token, true);
+            bool deleted = await Client.PostGetServiceResponseAsync<bool, Guid>("api/customer/Delete", Id, token, true);
 
             await LoadList();
         }
         catch (ApiException ex)
         {
-            await ModalManager.ShowMessageAsync("Product Deletion Error", ex.Message);
+            await ModalManager.ShowMessageAsync("Customer Deletion Error", ex.Message);
         }
         catch (Exception ex)
         {
@@ -81,15 +72,9 @@
         try
         {
             string token = await localStorageService.GetItemAsStringAsync("token");
-            ProductLists = await Client.GetServiceResponseAsync<List<ProductDTO>>("api/Product/Products", token, true);
-            columnConfigs = JsonConvert.DeserializeObject<List<ColumnConfig>>(ProductJson.json);
-            var imageColumn = new RadzenDataGridColumn<ProductDTO>
-        {
-            Property = nameof(ProductDTO.Photo),
-            Title = "Resim",
-            Template = (context) => @<RadzenImage Path="context.Photo" class="rz-gravatar" />
-            };
-            gridList.GenerateColumnsFromType(imageColumn,columnConfigs);
+            CustomerLists = await Client.GetServiceResponseAsync<List<CustomerDTO>>("api/Customer/Customers", token, true);
+            columnConfigs = JsonConvert.DeserializeObject<List<ColumnConfig>>(CustomerJson.json);
+            gridList.GenerateColumnsFromType(null, columnConfigs);
 
             foreach (var item in gridList.Columns)
             {
