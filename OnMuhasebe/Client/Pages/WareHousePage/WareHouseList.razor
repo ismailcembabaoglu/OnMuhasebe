@@ -1,0 +1,234 @@
+﻿@page "/warehouses"
+@using Morris.Blazor.FluentValidation
+@using Morris.Blazor.Validation
+@using OnMuhasebe.Application.CustomExceptions
+@using OnMuhasebe.Application.DTOs
+@using OnMuhasebe.Client.Utils
+@inject Radzen.DialogService DialogService
+@inject TooltipService tooltipService
+
+@if (WarehouseList != null)
+{
+    <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Depo Ekle" Click="@InsertRowWarehouse" Disabled=@(WarehouseToInsert != null || WarehouseToUpdate != null ) />
+    <RadzenDataGrid @ref="WarehouseGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowAlternatingRows="false" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" EditMode="DataGridEditMode.Single"
+                    Data="@WarehouseList" TItem="WarehouseDTO" RowUpdate="@OnUpdateRowWarehouse" RowCreate="@OnCreateRowWarehouse" Sort="@ResetWarehouse" Page="@ResetWarehouse" Filter="@ResetWarehouse" FilterMode="FilterMode.SimpleWithMenu" ColumnWidth="200px">
+        <Columns>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Context="WarehouseDTO" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="156px">
+                <Template Context="WarehouseDTO">
+                    <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRowWarehouse(WarehouseDTO))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRowWarehouse(WarehouseDTO))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                </Template>
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRowWarehouse(WarehouseDTO))">
+                    </RadzenButton>
+                    <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEditWarehouse(WarehouseDTO))">
+                    </RadzenButton>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRowWarehouse(WarehouseDTO))">
+                    </RadzenButton>
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="WarehouseCode" Title="Depo Kodu">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.WarehouseCode" Style="width:100%; display: block" Name="WarehouseCode" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="WarehouseName" Title="Depo Adı">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.WarehouseName" Style="width:100%; display: block" Name="WarehouseName" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="AuthCode" Title="Yetkili Kodu">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.AuthCode" Style="width:100%; display: block" Name="AuthCode" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="AuthName" Title="Yetkili Adı">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.AuthName" Style="width:100%; display: block" Name="AuthName" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="Country" Title="Ülke">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.Country" Style="width:100%; display: block" Name="Country" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="City" Title="Şehir">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.City" Style="width:100%; display: block" Name="City" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="District" Title="İlçe">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.District" Style="width:100%; display: block" Name="District" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="Address" Title="Tam Adres">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.Address" Style="width:100%; display: block" Name="Address" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="WarehouseDTO" Property="Phone" Title="Telefon">
+                <EditTemplate Context="WarehouseDTO">
+                    <RadzenTextBox @bind-Value="WarehouseDTO.Phone" Style="width:100%; display: block" Name="Phone" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+
+        </Columns>
+    </RadzenDataGrid>
+}
+
+
+@code {
+    [Inject]
+    public HttpClient HttpClient { get; set; }
+
+    [Inject]
+    public ModalManager ModalManager { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    [Inject]
+    ILocalStorageService localStorageService { get; set; }
+    RadzenDataGrid<WarehouseDTO> WarehouseGrid;
+    private WarehouseDTO WarehouseModel = new WarehouseDTO();
+    protected IEnumerable<WarehouseDTO> WarehouseList;
+    WarehouseDTO WarehouseToInsert;
+    WarehouseDTO WarehouseToUpdate;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            WarehouseList = await HttpClient.GetServiceResponseAsync<List<WarehouseDTO>>("api/warehouse/warehouses/", token, true);
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+    }
+    void ShowTooltip(string name, ElementReference elementReference, TooltipOptions options = null) => tooltipService.Open(elementReference, name, options);
+    async Task DeleteRowWarehouse(WarehouseDTO Warehouse)
+    {
+        try
+        {
+            ResetWarehouse();
+
+
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            bool deleted = await HttpClient.PostGetServiceResponseAsync<bool, Guid>("api/warehouse/Delete", Warehouse.Id, token, true);
+            await WarehouseGrid.Reload();
+            WarehouseList = await HttpClient.GetServiceResponseAsync<List<WarehouseDTO>>("api/warehouse/Warehouses/", token, true);
+            StateHasChanged();
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+
+    }
+    void CancelEditWarehouse(WarehouseDTO Warehouse)
+    {
+        ResetWarehouse();
+
+        WarehouseGrid.CancelEditRow(Warehouse);
+    }
+    async Task SaveRowWarehouse(WarehouseDTO Warehouse)
+    {
+        await WarehouseGrid.UpdateRow(Warehouse);
+        WarehouseToInsert = null;
+        await WarehouseGrid.Reload();
+        StateHasChanged();
+
+    }
+    async void OnUpdateRowWarehouse(WarehouseDTO Warehouse)
+    {
+        try
+        {
+            ResetWarehouse();
+            Warehouse.UpdatedDate = DateTime.Now;
+            Warehouse.UpdatedUser = await localStorageService.GetItemAsStringAsync("email");
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            WarehouseModel = await HttpClient.PostGetServiceResponseAsync<WarehouseDTO, WarehouseDTO>("api/warehouse/update", Warehouse, token, true);
+            await WarehouseGrid.Reload();
+            WarehouseList = await HttpClient.GetServiceResponseAsync<List<WarehouseDTO>>("api/warehouse/warehouses/", token, true);
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+    }
+    async Task EditRowWarehouse(WarehouseDTO Warehouse)
+    {
+        WarehouseToUpdate = Warehouse;
+        await WarehouseGrid.EditRow(Warehouse);
+    }
+    void ResetWarehouse()
+    {
+        WarehouseToInsert = null;
+        WarehouseToUpdate = null;
+    }
+    async Task InsertRowWarehouse()
+    {
+        WarehouseToInsert = new WarehouseDTO();
+        await WarehouseGrid.InsertRow(WarehouseToInsert);
+        StateHasChanged();
+    }
+    async void OnCreateRowWarehouse(WarehouseDTO Warehouse)
+    {
+        try
+        {
+
+            Warehouse.CreateDate = DateTime.Now;
+            Warehouse.CreatedUser = await localStorageService.GetItemAsStringAsync("email");
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            WarehouseModel = await HttpClient.PostGetServiceResponseAsync<WarehouseDTO, WarehouseDTO>("api/warehouse/create", Warehouse, token, true);
+            WarehouseToInsert = null;
+            await WarehouseGrid.Reload();
+            WarehouseList = await HttpClient.GetServiceResponseAsync<List<WarehouseDTO>>("api/warehouse/warehouses/", token, true);
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+        // NavigationManager.NavigateTo("/products/edit/"+ProductId);
+    }
+}

@@ -1,0 +1,293 @@
+﻿@using OnMuhasebe.Application.CustomExceptions
+@using OnMuhasebe.Application.DTOs
+@using OnMuhasebe.Client.Utils
+<EditForm Model="@voucherDetail" OnValidSubmit="SubmitForm">
+    <RadzenStack Gap="1rem" Orientation="Orientation.Vertical" JustifyContent="JustifyContent.SpaceBetween" Style="height: 100%;">
+        <RadzenStack>
+
+            <RadzenRow>
+                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border);border-color:#f86207;border-width:2px;border-radius:5px">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">Contact</RadzenText>
+                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">
+
+                        <RadzenStack Gap="0" Class="rz-text-truncate">
+                            <RadzenFormField Text="Fiş Kodu" Variant="Variant.Filled">
+                                <RadzenTextBox @bind-Value="@voucherDetail.VoucherCode" />
+                            </RadzenFormField>
+                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Müşteri Kodu</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(voucherDetail?.CustomerCode)</b></RadzenText>
+
+                        </RadzenStack>
+                    </RadzenStack>
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-border-radius-1" Style="border: var(--rz-grid-cell-border);border-color:#f86207;border-width:2px;border-radius:5px">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">Delivery Information</RadzenText>
+                    <RadzenStack Gap="0" Class="rz-text-truncate">
+                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Fiş Türü</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(voucherDetail?.VoucherType)</b></RadzenText>
+                        <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Müşteri Adı</RadzenText>
+                        <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(voucherDetail?.CustomerName)</b></RadzenText>
+                        <RadzenFormField Text="Fiş Kodu" Variant="Variant.Filled">
+                            <RadzenTextBox @bind-Value="@voucherDetail.DocumentNo" />
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenStack>
+
+    </RadzenStack>
+    <RadzenDataGrid @ref="WarehouseGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowAlternatingRows="false" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" EditMode="DataGridEditMode.Single"
+                    Data="@voucherDetail.ProductMotions" TItem="ProductMotionDTO" RowUpdate="@OnUpdateRowWarehouse" RowCreate="@OnCreateRowWarehouse" Sort="@ResetWarehouse" Page="@ResetWarehouse" Filter="@ResetWarehouse" FilterMode="FilterMode.SimpleWithMenu" ColumnWidth="200px">
+        <RadzenDataGridColumn TItem="ProductMotionDTO" Property="ProductNumber" Title="Ürün Kodu" Editable="true">
+
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ProductMotionDTO" Property="Quantity" Title="Ürün Adı" Editable="true">
+            <EditTemplate Context="ProductMotionDTO">
+                <RadzenDropDown @bind-Value="ProductMotionDTO.ProductId" AllowClear="true" Placeholder="seçim yapınız" Data="@products" Style="width: 100%;"
+                                Change="@(()=>OnNameChanged(ProductMotionDTO))"
+                                TextProperty="ProductName" ValueProperty="Id" Name="CustomerGroupName"></RadzenDropDown>
+            </EditTemplate>
+
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ProductMotionDTO" Property="Quantity" Title="Miktar" Editable="true">
+            <EditTemplate Context="ProductMotionDTO">
+                <RadzenNumeric @bind-Value="ProductMotionDTO.Quantity" Style="width:100%; display: block" Name="Quantity" />
+            </EditTemplate>
+
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="ProductMotionDTO" Property="Price" Title="Fiyat" Editable="true">
+            <EditTemplate Context="ProductMotionDTO">
+                <RadzenNumeric @bind-Value="ProductMotionDTO.Quantity" Style="width:100%; display: block" Name="Quantity" />
+            </EditTemplate>
+
+        </RadzenDataGridColumn>
+    </RadzenDataGrid>
+
+</EditForm>
+
+@code {
+    [Inject]
+    public HttpClient HttpClient { get; set; }
+
+    [Inject]
+    ModalManager ModalManager { get; set; }
+
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
+    [Inject]
+    ILocalStorageService localStorageService { get; set; }
+    [Parameter]
+    public string VoucherType { get; set; }
+    [Parameter]
+    public Guid CustomerId { get; set; }
+    public VoucherDetailDTO voucherDetail = new VoucherDetailDTO();
+    RadzenDataGrid<ProductMotionDTO> WarehouseGrid;
+    protected List<ProductMotionDTO> WarehouseList;
+    protected List<ProductDTO> products;
+    ProductMotionDTO WarehouseToInsert;
+    ProductMotionDTO WarehouseToUpdate;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            products = await HttpClient.GetServiceResponseAsync<List<ProductDTO>>("api/product/products/", token, true);
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+    }
+    async Task SubmitForm(EditContext editContext)
+    {
+        if (editContext.Validate())
+        {
+            await editOrUpdate((VoucherDetailDTO)editContext.Model);
+        }
+    }
+    async Task editOrUpdate(VoucherDetailDTO VoucherDetail)
+    {
+
+        try
+        {
+
+            String url = "api/customer/create";
+
+            string token = await localStorageService.GetItemAsStringAsync("token");
+
+
+
+
+
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.InnerException.Message);
+        }
+        catch (Exception ex)
+        {
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+
+
+
+    }
+    async void OnNameChanged( ProductMotionDTO product)
+    {
+        // 'Name' alanında yapılan değişiklik sonrası 'Price' alanını güncelle
+        string token = await localStorageService.GetItemAsStringAsync("token");
+        var prod = await HttpClient.GetServiceResponseAsync<ProductDTO>("api/product/ProductById/"+product.ProductId, token, true);
+        var price = await HttpClient.GetServiceResponseAsync<List<PriceDTO>>("api/price/PriceProductById/" + product.ProductId, token, true);
+        var ware = await HttpClient.GetServiceResponseAsync<List<WarehouseDTO>>("api/warehouse/Warehouses", token, true);
+        if (VoucherType=="Stok Giriş")
+        {
+            var prices = price.Where(c => c.PriceType == "Alış" && c.IsDefault == true).FirstOrDefault();
+            product.Price = prices.PriceValue;
+            product.Kdv = Convert.ToDecimal(prices.KdvRatio);
+        }
+        else
+        {
+            var prices = price.Where(c => c.PriceType == "Satış" && c.IsDefault == true).FirstOrDefault();
+            product.Price = prices.PriceValue;
+            product.Kdv = Convert.ToDecimal(prices.KdvRatio);
+        }
+        product.WarehouseId = ware.FirstOrDefault().Id;
+        product.WarehouseName = ware.FirstOrDefault().WarehouseName;
+        product.WarehouseCode = ware.FirstOrDefault().WarehouseCode;
+        product.ProductNumber = prod.ProductNumber;
+        product.ProductName = prod.ProductName;
+        product.MotionType = VoucherType;
+        product.Quantity = 1;
+        product.TotalAmount = product.Quantity * product.Price;
+
+        // Grid'i güncellemek için StateHasChanged metodunu çağır
+        StateHasChanged();
+    }
+    private object OnTransformModel(object model)
+    {
+        // Confirm that the model is of the expected type
+        // Do transformations here
+        // return the transformed model
+        return model;
+    }
+    void goBackproductList()
+    {
+        NavigationManager.NavigateTo("/customerlist");
+    }
+    async Task DeleteRowWarehouse(ProductMotionDTO Warehouse)
+    {
+        try
+        {
+            ResetWarehouse();
+
+
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            WarehouseList.Remove(Warehouse);
+            await WarehouseGrid.Reload();
+  
+            StateHasChanged();
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+
+    }
+    void CancelEditWarehouse(ProductMotionDTO Warehouse)
+    {
+        ResetWarehouse();
+
+        WarehouseGrid.CancelEditRow(Warehouse);
+    }
+    async Task SaveRowWarehouse(ProductMotionDTO Warehouse)
+    {
+        await WarehouseGrid.UpdateRow(Warehouse);
+        WarehouseToInsert = null;
+        await WarehouseGrid.Reload();
+        StateHasChanged();
+
+    }
+    async void OnUpdateRowWarehouse(ProductMotionDTO Warehouse)
+    {
+        try
+        {
+            ResetWarehouse();
+            Warehouse.UpdatedDate = DateTime.Now;
+            Warehouse.UpdatedUser = await localStorageService.GetItemAsStringAsync("email");
+            var listEleman= WarehouseList.FirstOrDefault(c => c.ProductId == Warehouse.ProductId);
+            if (listEleman!=null)
+            {
+                listEleman = Warehouse;
+            }
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+    }
+    async Task EditRowWarehouse(ProductMotionDTO Warehouse)
+    {
+        WarehouseToUpdate = Warehouse;
+        await WarehouseGrid.EditRow(Warehouse);
+    }
+    void ResetWarehouse()
+    {
+        WarehouseToInsert = null;
+        WarehouseToUpdate = null;
+    }
+    async Task InsertRowWarehouse()
+    {
+        WarehouseToInsert = new ProductMotionDTO();
+        await WarehouseGrid.InsertRow(WarehouseToInsert);
+        StateHasChanged();
+    }
+    async void OnCreateRowWarehouse(ProductMotionDTO Warehouse)
+    {
+        try
+        {
+
+            Warehouse.CreateDate = DateTime.Now;
+            Warehouse.CreatedUser = await localStorageService.GetItemAsStringAsync("email");
+            WarehouseList.Add(Warehouse);
+            WarehouseToInsert = null;
+            await WarehouseGrid.Reload();
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+        // NavigationManager.NavigateTo("/products/edit/"+ProductId);
+    }
+
+}

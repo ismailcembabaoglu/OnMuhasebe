@@ -67,6 +67,15 @@
 
                             </RadzenFormField>
                             <ValidationMessage style="font-size:x-small" For="@(() => productModel.Producer)" />
+                            <RadzenFormField AllowFloatingLabel="false" Text="Not">
+                                <Start>
+                                    <RadzenIcon Icon="description" />
+                                </Start>
+                                <ChildContent>
+                                    <RadzenTextArea Placeholder="Not giriniz" @bind-Value="productModel.Decription" class="w-100" aria-label="TextArea with placeholder" />
+                                </ChildContent>
+                            </RadzenFormField>
+                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.Decription)" />
                         </RadzenStack>
                     </RadzenColumn>
                     <RadzenColumn>
@@ -137,15 +146,7 @@
                             </ChildContent>
                             </RadzenFormField>
                             <ValidationMessage style="font-size:x-small" For="@(() => productModel.productType)" /> *@
-                            <RadzenFormField AllowFloatingLabel="false" Text="Not">
-                                <Start>
-                                    <RadzenIcon Icon="description" />
-                                </Start>
-                                <ChildContent>
-                                    <RadzenTextArea Placeholder="Not giriniz" @bind-Value="productModel.Decription" class="w-100" aria-label="TextArea with placeholder" />
-                                </ChildContent>
-                            </RadzenFormField>
-                            <ValidationMessage style="font-size:x-small" For="@(() => productModel.Decription)" />
+                         
                         </RadzenStack>
 
 

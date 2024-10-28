@@ -76,6 +76,13 @@ namespace OnMuhasebe.Persistence.Context
                 CreatedUser = "Admin",
                 ProductGroupName = "Grupsuz"
             });
+            modelBuilder.Entity<CustomerGroup>().HasData(new CustomerGroup
+            {
+                Id = Guid.Parse("E767D4B3-88F7-4AF6-932D-431BBFD95C3F"),
+                CreateDate = DateTime.UtcNow,
+                CreatedUser = "Admin",
+                CustomerGroupName = "Grupsuz"
+            });
             modelBuilder.Entity<ProductUnderGroup>().HasData(new ProductUnderGroup
             {
                 Id = Guid.Parse("C340B1D5-F2FE-4F0C-9D4F-511F78A8643C"),
@@ -162,7 +169,6 @@ namespace OnMuhasebe.Persistence.Context
 
             //ProductMotion İlişkiler
             modelBuilder.Entity<ProductMotion>().HasOne(e => e.Product).WithMany(e => e.ProductMotions).HasForeignKey(e => e.ProductId).OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<ProductMotion>().HasOne(e => e.Kdv).WithMany(e => e.ProductMotions).HasForeignKey(e => e.KdvId).OnDelete(DeleteBehavior.NoAction);
 
             //ProductUnderGroup İlişkiler
             modelBuilder.Entity<ProductUnderGroup>().HasOne(e => e.ProductGroup).WithMany(e => e.ProductUnderGroups).HasForeignKey(e => e.ProductGroupId).OnDelete(DeleteBehavior.NoAction);
@@ -177,7 +183,6 @@ namespace OnMuhasebe.Persistence.Context
 
             //Voucher İlişkiler
             modelBuilder.Entity<Voucher>().HasOne(e => e.Customer).WithMany(e => e.Vouchers).HasForeignKey(e => e.CustomerId).OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Voucher>().HasOne(e => e.Bank).WithMany(e => e.Vouchers).HasForeignKey(e => e.BankId).OnDelete(DeleteBehavior.NoAction);
 
 
             modelBuilder.Entity<BaseModel>().UseTpcMappingStrategy();

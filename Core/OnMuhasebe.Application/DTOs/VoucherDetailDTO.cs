@@ -1,7 +1,4 @@
-﻿using OnMuhasebe.Application.DTOs.BaseModelDTOs;
-using OnMuhasebe.Domain.Models;
-using OnMuhasebe.Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnMuhasebe.Application.DTOs
 {
-    public class VoucherDTO : BaseModelDTO
+    public class VoucherDetailDTO
     {
         public string VoucherCode { get; set; }
         public string VoucherType { get; set; }
@@ -22,6 +19,6 @@ namespace OnMuhasebe.Application.DTOs
         public Guid CustomerId { get; set; }
         public string? CustomerName { get; set; }
         public string? CustomerCode { get; set; }
+        public List<ProductMotionDTO> ProductMotions { get; set; }
     }
-
 }

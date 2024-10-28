@@ -19,6 +19,8 @@ builder.Services.AddScoped<ModalManager>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddFormValidation(config => config.AddFluentValidation(typeof(ProductDTO).Assembly));
 builder.Services.AddFormValidation(config => config.AddFluentValidation(typeof(UnitDTO).Assembly));
+builder.Services.AddFormValidation(config => config.AddFluentValidation(typeof(CustomerDTO).Assembly));
+builder.Services.AddFormValidation(config => config.AddFluentValidation(typeof(CustomerGroupDTO).Assembly));
 
 builder.Services.AddBlazoredModal();
 builder.Services.AddBlazoredLocalStorage();

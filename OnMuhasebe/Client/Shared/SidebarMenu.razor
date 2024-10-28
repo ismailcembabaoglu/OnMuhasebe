@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 
 
-<RadzenHeader Style="background-color:#f86207">
+<RadzenHeader Style="background-color:darkseagreen">
     <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
         <RadzenSidebarToggle Click="@(() => sidebarExpanded = !sidebarExpanded)" />
         <RadzenLabel Text="İsba Ön Muhasebe" />
@@ -16,26 +16,30 @@
             <Authorized>
 @*                 <RadzenPanelMenuItem Text="Overview" Icon="home" />
                 <RadzenPanelMenuItem Text="Dashboard" Icon="dashboard" /> *@
-                <RadzenPanelMenuItem Text="Ürünler" Path="/productlist" Icon="directions_car" />
-                <RadzenPanelMenuItem Text="Ürün birimleri" Path="/Unitlist" Icon="map" />
-                <RadzenPanelMenuItem Text="Müşteriler" Path="/CustomerList" Icon="language" />
-                <RadzenPanelMenuItem Text="Seçenekler" Path="/admin/Options" Icon="done" />
+                <RadzenPanelMenuItem Text="Ürünler" Path="/productlist" Icon="home" />
+                <RadzenPanelMenuItem Text="Ürün birimleri" Path="/Unitlist" Icon="line_style" />
+                <RadzenPanelMenuItem Text="Müşteriler" Path="/CustomerList" Icon="account_box" />
+                <RadzenPanelMenuItem Text="Ödeme Tipleri" Path="/paymenttypes" Icon="euro_symbol" />
+                <RadzenPanelMenuItem Text="Depolar" Path="/warehouses" Icon="group_work" />
+                <RadzenPanelMenuItem Text="Kasalar" Path="/safeboxes" Icon="dns" />
+                <RadzenPanelMenuItem Text="Fişler" Path="/voucherlist" Icon="dns" />
+               @*  <RadzenPanelMenuItem Text="Seçenekler" Path="/admin/Options" Icon="done" />
                 <RadzenPanelMenuItem Text="Araba Seçenekleri" Path="/admin/CarOptions" Icon="done_all" />
                 <RadzenPanelMenuItem Text="Rezervasyon" Path="/admin/Reservations" Icon="assignment" />
                 <RadzenPanelMenuItem Text="Referanslar" Path="/admin/partners" Icon="favorite_border" />
                 <RadzenPanelMenuItem Text="Hizmet" Path="/admin/Services" Icon="build" />
                 <RadzenPanelMenuItem Text="Hakkımızda" Path="/admin/abouts" Icon="chrome_reader_mode" />
-                <RadzenPanelMenuItem Text="Kullanıcı" Path="/admin/Users" Icon="account_circle" />
+                <RadzenPanelMenuItem Text="Kullanıcı" Path="/admin/Users" Icon="account_circle" /> *@
        @*          <RadzenPanelMenuItem Text="UI Fundamentals" Icon="auto_awesome">
                     <RadzenPanelMenuItem Text="Themes" Icon="color_lens" />
                     <RadzenPanelMenuItem Text="Colors" Icon="invert_colors" />
                     
                 </RadzenPanelMenuItem> *@
-                <RadzenPanelMenuItem Text="Çıkış Yap" Path="/logout" Icon="dashboard" />
+                <RadzenPanelMenuItem Text="Çıkış Yap" Path="/logout" Icon="exit_to_app" />
             </Authorized>
 
             <NotAuthorized>
-                <RadzenPanelMenuItem Text="Çıkış Yap" Path="/login" Icon="dashboard" />
+                <RadzenPanelMenuItem Text="Çıkış Yap" Path="/login" Icon="exit_to_app" />
             </NotAuthorized>
 
         </AuthorizeView>

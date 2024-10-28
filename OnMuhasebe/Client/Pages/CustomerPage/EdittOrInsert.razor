@@ -1,0 +1,328 @@
+﻿@page "/customers/add"
+@page "/customers/edit/{CustomerId:guid}"
+@using Morris.Blazor.FluentValidation
+@using Morris.Blazor.Validation
+@using OnMuhasebe.Application.CustomExceptions
+@using OnMuhasebe.Application.DTOs
+@using OnMuhasebe.Application.Validators
+@using OnMuhasebe.Client.Utils
+<EditForm Model="@customerModel" OnValidSubmit="SubmitForm">
+    <Morris.Blazor.Validation.Validate ValidationProperties=@(ValidationProperties.Set.FluentValidator<CustomerValidator>()) OnTransformModel=OnTransformModel />
+
+    <RadzenRow Gap="1rem">
+        <RadzenColumn>
+            <RadzenStack>
+                <RadzenFormField AllowFloatingLabel="false" Text="Müşteri Tipi">
+                    @*                     <Start>
+                    <RadzenIcon Icon="account_circle" />
+                    </Start> *@
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.CustomerType" Name="CustomerType" />
+                    </ChildContent>
+
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.CustomerType)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Müşteri Adı">
+                    <Start>
+                        <RadzenIcon Icon="account_balance_wallet" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.CustomerName" Name="CustomerName" />
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.CustomerName)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Müşteri Kodu">
+                    <Start>
+                        <RadzenIcon Icon="flight_land" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.CustomerCode" Name="CustomerCode" />
+
+                    </ChildContent>
+
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.CustomerCode)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Yetkili">
+                    <Start>
+                        <RadzenIcon Icon="flight_land" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.AuthName" Name="AuthName" />
+
+                    </ChildContent>
+
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.AuthName)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Fatura Ünvanı">
+                    <Start>
+                        <RadzenIcon Icon="flight_land" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.InvoiceTitle" Name="InvoiceTitle" />
+
+                    </ChildContent>
+
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.InvoiceTitle)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Yetkili Numarası">
+                    <Start>
+                        <RadzenIcon Icon="flight_land" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.PersonPhoneNumber" Name="PersonPhoneNumber" />
+
+                    </ChildContent>
+
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.PersonPhoneNumber)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Tel No">
+                    <Start>
+                        <RadzenIcon Icon="flight_land" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.Phone" Name="Phone" />
+
+                    </ChildContent>
+
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.Phone)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Fax">
+                    <Start>
+                        <RadzenIcon Icon="flight_land" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.Fax" Name="Fax" />
+
+                    </ChildContent>
+
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.Fax)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="E-mail">
+                    <Start>
+                        <RadzenIcon Icon="flight_land" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.Email" Name="Email" />
+
+                    </ChildContent>
+
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.Email)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Açıklama">
+                    <Start>
+                        <RadzenIcon Icon="description" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextArea Placeholder="Açıklama giriniz" @bind-Value="customerModel.Decription" class="w-100" aria-label="TextArea with placeholder" />
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.Decription)" />
+            </RadzenStack>
+        </RadzenColumn>
+        <RadzenColumn>
+            <RadzenStack>
+                <RadzenFormField Style="width:10%;" AllowFloatingLabel="false" Text="Aktif">
+                    <ChildContent>
+                        <RadzenSwitch Style="width:10%;height:30px" @bind-Value="customerModel.IsActive" Name="IsActive" />
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.IsActive)" />
+
+                <RadzenFormField AllowFloatingLabel="false" Text="Grubu">
+                    <Start>
+                        <RadzenIcon Icon="flight_takeoff" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenDropDown @bind-Value="customerModel.CustomerGroupId" AllowClear="true" Placeholder="seçim yapınız" Data="@customerGroups" Style="width: 100%;" TextProperty="CustomerGroupName" ValueProperty="Id" Name="CustomerGroupName"></RadzenDropDown>
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.CustomerGroupId)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Website">
+                    <Start>
+                        <RadzenIcon Icon="flight_takeoff" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.Website" Name="Website" />
+
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.Website)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Ülkesi">
+                    <Start>
+                        <RadzenIcon Icon="flight_takeoff" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.Country" Name="Country" />
+
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.Country)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Şehir">
+                    <Start>
+                        <RadzenIcon Icon="flight_takeoff" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.City" Name="City" />
+
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.City)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Vergi Dairesi">
+                    <Start>
+                        <RadzenIcon Icon="flight_takeoff" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.TaxOffice" Name="TaxOffice" />
+
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.TaxOffice)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Vergi Noi">
+                    <Start>
+                        <RadzenIcon Icon="flight_takeoff" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.TaxNumber" Name="TaxNumber" />
+
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.TaxNumber)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="İndirim Oranı %">
+                    <Start>
+                        <RadzenIcon Icon="flight_takeoff" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenNumeric @bind-Value="customerModel.DiscountRatio" Name="DiscountRatio" />
+
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.DiscountRatio)" />
+                <RadzenFormField AllowFloatingLabel="false" Text="Risk Limiti">
+                    <Start>
+                        <RadzenIcon Icon="flight_takeoff" />
+                    </Start>
+                    <ChildContent>
+                        <RadzenTextBox @bind-Value="customerModel.RiskLimit" Name="RiskLimit" />
+
+                    </ChildContent>
+                </RadzenFormField>
+                <ValidationMessage style="font-size:x-small" For="@(() => customerModel.RiskLimit)" />
+ 
+            </RadzenStack>
+
+
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.Center" Gap="1rem" Class="rz-mt-8 rz-mb-4">
+        <RadzenButton ButtonType="ButtonType.Submit" Size="ButtonSize.Large" Icon="save" Text="Kaydet" />
+        <RadzenButton ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Large" Icon="cancel" Text="Geri Dön" Click="@goBackproductList" />
+    </RadzenStack>
+</EditForm>
+@code {
+    [Parameter]
+    public Guid CustomerId { get; set; }
+
+    [Inject]
+    public HttpClient HttpClient { get; set; }
+
+    [Inject]
+    public ModalManager ModalManager { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    [Inject]
+    ILocalStorageService localStorageService { get; set; }
+    private CustomerDTO customerModel = new CustomerDTO();
+    private List<CustomerGroupDTO> customerGroups = new List<CustomerGroupDTO>() ;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            customerGroups = await HttpClient.GetServiceResponseAsync<List<CustomerGroupDTO>>("api/CustomerGroup/customerGroups/", token, true);
+            if (CustomerId != null && CustomerId != Guid.Empty)
+            {
+
+
+
+                customerModel = await HttpClient.GetServiceResponseAsync<CustomerDTO>("api/customer/customerById/" + CustomerId, token, true);
+
+            }
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+    }
+    async Task SubmitForm(EditContext editContext)
+    {
+        if (editContext.Validate())
+        {
+            await editOrUpdate((CustomerDTO)editContext.Model);
+        }
+    }
+    async Task editOrUpdate(CustomerDTO CustomerDTO)
+    {
+
+        try
+        {
+
+            String url = "api/customer/create";
+            customerModel = CustomerDTO;
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            // Update
+            if (CustomerId != null && CustomerId != Guid.Empty)
+            {
+                url = "api/customer/update";
+                customerModel.UpdatedDate = DateTime.Now;
+                customerModel.UpdatedUser = await localStorageService.GetItemAsStringAsync("email");
+                customerModel = await HttpClient.PostGetServiceResponseAsync<CustomerDTO, CustomerDTO>(url, customerModel, token, true);
+            }
+            else
+            {
+                customerModel.CreateDate = DateTime.Now;
+                customerModel.CreatedUser = await localStorageService.GetItemAsStringAsync("email");
+                customerModel = await HttpClient.PostGetServiceResponseAsync<CustomerDTO, CustomerDTO>(url, customerModel, token, true);
+                CustomerId = customerModel.Id;
+                NavigationManager.NavigateTo("/customerlist");
+
+
+            }
+
+
+
+
+
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.InnerException.Message);
+        }
+        catch (Exception ex)
+        {
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+
+
+
+    }
+    private object OnTransformModel(object model)
+    {
+        // Confirm that the model is of the expected type
+        // Do transformations here
+        // return the transformed model
+        return model;
+    }
+    void goBackproductList()
+    {
+        NavigationManager.NavigateTo("/customerlist");
+    }
+}

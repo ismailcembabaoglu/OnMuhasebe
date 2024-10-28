@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnMuhasebe.Persistence.Context;
@@ -11,9 +12,11 @@ using OnMuhasebe.Persistence.Context;
 namespace OnMuhasebe.Persistence.Migrations
 {
     [DbContext(typeof(OnMuhasebePsqlDbContext))]
-    partial class OnMuhasebePsqlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240608221420_mig_voucher_edit")]
+    partial class mig_voucher_edit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

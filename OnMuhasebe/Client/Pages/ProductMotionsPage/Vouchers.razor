@@ -1,4 +1,4 @@
-﻿@page "/customerlist"
+﻿@page "/voucherlist"
 @using Newtonsoft.Json
 @using OnMuhasebe.Application.CustomExceptions
 @using OnMuhasebe.Application.DTOs
@@ -6,9 +6,10 @@
 @using OnMuhasebe.Application.Json
 @using OnMuhasebe.Client.CustomComponents.Grid
 @using OnMuhasebe.Client.Utils
-
+@inject DialogService dialogService
+@inject NotificationService NotificationService
 <RadzenButton Shade="Shade.Dark" Click=goCreateUserPage Icon="add" Variant="Variant.Flat" Text="Yeni Müşteri Ekle" ButtonStyle="ButtonStyle.Success" />
-<Grid Columns="Columns" Data="CustomerLists" UIWithT="RenderColumn" UIWithT2="RenderColumn" TItem="CustomerDTO" OnDeleteAction="DeleteUser" OnEditAction="goUpdateUserPage"/>
+<Grid Columns="Columns" Data="voucherLists" UIWithT="RenderColumn" UIWithT2="RenderColumn" TItem="VoucherDTO" OnDeleteAction="DeleteUser" OnEditAction="goUpdateUserPage" />
 
 @code {
     [Inject]
@@ -23,10 +24,10 @@
     ILocalStorageService localStorageService { get; set; }
 
     public List<ColumnConfig> columnConfigs;
-    List<RadzenDataGridColumn<CustomerDTO>> Columns = new List<RadzenDataGridColumn<CustomerDTO>>();
-    DynamicGrid<CustomerDTO> gridList = new DynamicGrid<CustomerDTO>();
-    protected IEnumerable<CustomerDTO>CustomerLists;
-    private RenderFragment<RadzenDataGridColumn<CustomerDTO>> RenderColumn = (column) =>@<RadzenDataGridColumn TItem="CustomerDTO" Property="@(column.Property)" Title="@(column.Title)">
+    List<RadzenDataGridColumn<VoucherDTO>> Columns = new List<RadzenDataGridColumn<VoucherDTO>>();
+    DynamicGrid<VoucherDTO> gridList = new DynamicGrid<VoucherDTO>();
+    protected IEnumerable<VoucherDTO> voucherLists;
+    private RenderFragment<RadzenDataGridColumn<VoucherDTO>> RenderColumn = (column) =>@<RadzenDataGridColumn TItem="VoucherDTO" Property="@(column.Property)" Title="@(column.Title)">
 
     </RadzenDataGridColumn>
     ;
@@ -36,13 +37,12 @@
     }
     protected async void goCreateUserPage()
     {
-
-        NavigationManager.NavigateTo("/customers/add");
+        await dialogService.OpenAsync("İşlem Seç", ds =>@<OnMuhasebe.Client.Pages.ProductMotionsPage.ProductMotion />, new DialogOptions() { CloseDialogOnEsc = true, Width = "50%", Height = "60%", ShowClose = true, Resizable = false, AutoFocusFirstElement = true, Draggable = true, ShowTitle = true });
     }
 
     protected void goUpdateUserPage(Guid UserId)
     {
-        NavigationManager.NavigateTo("/customers/edit/" + UserId);
+        NavigationManager.NavigateTo("/vouchers/edit/" + UserId);
     }
 
     protected async void DeleteUser(Guid Id)
@@ -54,13 +54,13 @@
         try
         {
             string token = await localStorageService.GetItemAsStringAsync("token");
-            bool deleted = await Client.PostGetServiceResponseAsync<bool, Guid>("api/customer/Delete", Id, token, true);
+            bool deleted = await Client.PostGetServiceResponseAsync<bool, Guid>("api/voucher/Delete", Id, token, true);
 
             await LoadList();
         }
         catch (ApiException ex)
         {
-            await ModalManager.ShowMessageAsync("Customer Deletion Error", ex.Message);
+            await ModalManager.ShowMessageAsync("voucher Deletion Error", ex.Message);
         }
         catch (Exception ex)
         {
@@ -74,8 +74,8 @@
         try
         {
             string token = await localStorageService.GetItemAsStringAsync("token");
-            CustomerLists = await Client.GetServiceResponseAsync<List<CustomerDTO>>("api/Customer/Customers", token, true);
-            columnConfigs = JsonConvert.DeserializeObject<List<ColumnConfig>>(CustomerJson.json);
+            voucherLists = await Client.GetServiceResponseAsync<List<VoucherDTO>>("api/voucher/vouchers", token, true);
+            columnConfigs = JsonConvert.DeserializeObject<List<ColumnConfig>>(VoucherJson.json);
             gridList.GenerateColumnsFromType(null, columnConfigs);
 
             foreach (var item in gridList.Columns)

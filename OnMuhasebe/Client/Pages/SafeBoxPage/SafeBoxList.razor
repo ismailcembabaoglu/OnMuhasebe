@@ -1,0 +1,204 @@
+﻿@page "/safeboxes"
+@using Morris.Blazor.FluentValidation
+@using Morris.Blazor.Validation
+@using OnMuhasebe.Application.CustomExceptions
+@using OnMuhasebe.Application.DTOs
+@using OnMuhasebe.Client.Utils
+@inject Radzen.DialogService DialogService
+@inject TooltipService tooltipService
+
+@if (safeBoxList != null)
+{
+    <RadzenButton ButtonStyle="ButtonStyle.Success" Icon="add_circle_outline" class="mt-2 mb-4" Text="Kasa Ekle" Click="@InsertRowSafeBox" Disabled=@(SafeBoxToInsert != null || SafeBoxToUpdate != null ) />
+    <RadzenDataGrid @ref="SafeBoxGrid" AllowAlternatingRows="false" AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" EditMode="DataGridEditMode.Single"
+                    Data="@safeBoxList" TItem="SafeBoxDTO" RowUpdate="@OnUpdateRowSafeBox" RowCreate="@OnCreateRowSafeBox" Sort="@ResetSafeBox" Page="@ResetSafeBox" Filter="@ResetSafeBox" FilterMode="FilterMode.Simple" ColumnWidth="200px">
+        <Columns>
+            <RadzenDataGridColumn TItem="SafeBoxDTO" Context="SafeBoxDTO" Filterable="false" Sortable="false" TextAlign="TextAlign.Right" Width="156px">
+                <Template Context="SafeBoxDTO">
+                    <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(args => EditRowSafeBox(SafeBoxDTO))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRowSafeBox(SafeBoxDTO))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                </Template>
+                <EditTemplate Context="SafeBoxDTO">
+                    <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Success" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@((args) => SaveRowSafeBox(SafeBoxDTO))">
+                    </RadzenButton>
+                    <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@((args) => CancelEditSafeBox(SafeBoxDTO))">
+                    </RadzenButton>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Variant="Variant.Flat" Shade="Shade.Lighter" Size="ButtonSize.Medium" class="my-1 ms-1" Click="@(args => DeleteRowSafeBox(SafeBoxDTO))">
+                    </RadzenButton>
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="SafeBoxDTO" Property="SafeBoxCode" Title="Kasa Kodu">
+                <EditTemplate Context="SafeBoxDTO">
+                    <RadzenTextBox @bind-Value="SafeBoxDTO.SafeBoxCode" Style="width:100%; display: block" Name="SafeBoxCode" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="SafeBoxDTO" Property="SafeBoxName" Title="Kasa Adı">
+                <EditTemplate Context="SafeBoxDTO">
+                    <RadzenTextBox @bind-Value="SafeBoxDTO.SafeBoxName" Style="width:100%; display: block" Name="SafeBoxName" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="SafeBoxDTO" Property="AuthCode" Title="Yetkili Kodu">
+                <EditTemplate Context="SafeBoxDTO">
+                    <RadzenTextBox @bind-Value="SafeBoxDTO.AuthCode" Style="width:100%; display: block" Name="AuthCode" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="SafeBoxDTO" Property="AuthName" Title="Yetkili Adı">
+                <EditTemplate Context="SafeBoxDTO">
+                    <RadzenTextBox @bind-Value="SafeBoxDTO.AuthName" Style="width:100%; display: block" Name="AuthName" />
+                    @* <RadzenRequiredValidator Text="ShipName is required" Component="ShipName" Popup="true" /> *@
+                </EditTemplate>
+            </RadzenDataGridColumn>
+
+        </Columns>
+    </RadzenDataGrid>
+}
+
+
+@code {
+    [Inject]
+    public HttpClient HttpClient { get; set; }
+
+    [Inject]
+    public ModalManager ModalManager { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    [Inject]
+    ILocalStorageService localStorageService { get; set; }
+    RadzenDataGrid<SafeBoxDTO> SafeBoxGrid;
+    private SafeBoxDTO SafeBoxModel = new SafeBoxDTO();
+    protected IEnumerable<SafeBoxDTO> safeBoxList;
+    SafeBoxDTO SafeBoxToInsert;
+    SafeBoxDTO SafeBoxToUpdate;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            safeBoxList = await HttpClient.GetServiceResponseAsync<List<SafeBoxDTO>>("api/safebox/safeboxs/", token, true);
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+    }
+    void ShowTooltip(string name, ElementReference elementReference, TooltipOptions options = null) => tooltipService.Open(elementReference, name, options);
+    async Task DeleteRowSafeBox(SafeBoxDTO SafeBox)
+    {
+        try
+        {
+            ResetSafeBox();
+
+
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            bool deleted = await HttpClient.PostGetServiceResponseAsync<bool, Guid>("api/safebox/Delete", SafeBox.Id, token, true);
+            await SafeBoxGrid.Reload();
+            safeBoxList = await HttpClient.GetServiceResponseAsync<List<SafeBoxDTO>>("api/safebox/safeboxs/", token, true);
+            StateHasChanged();
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+
+    }
+    void CancelEditSafeBox(SafeBoxDTO SafeBox)
+    {
+        ResetSafeBox();
+
+        SafeBoxGrid.CancelEditRow(SafeBox);
+    }
+    async Task SaveRowSafeBox(SafeBoxDTO SafeBox)
+    {
+        await SafeBoxGrid.UpdateRow(SafeBox);
+        SafeBoxToInsert = null;
+        await SafeBoxGrid.Reload();
+        StateHasChanged();
+
+    }
+    async void OnUpdateRowSafeBox(SafeBoxDTO SafeBox)
+    {
+        try
+        {
+            ResetSafeBox();
+            SafeBox.UpdatedDate = DateTime.Now;
+            SafeBox.UpdatedUser = await localStorageService.GetItemAsStringAsync("email");
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            SafeBoxModel = await HttpClient.PostGetServiceResponseAsync<SafeBoxDTO, SafeBoxDTO>("api/safebox/update", SafeBox, token, true);
+            await SafeBoxGrid.Reload();
+            safeBoxList = await HttpClient.GetServiceResponseAsync<List<SafeBoxDTO>>("api/safebox/safeboxs/", token, true);
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+    }
+    async Task EditRowSafeBox(SafeBoxDTO SafeBox)
+    {
+        SafeBoxToUpdate = SafeBox;
+        await SafeBoxGrid.EditRow(SafeBox);
+    }
+    void ResetSafeBox()
+    {
+        SafeBoxToInsert = null;
+        SafeBoxToUpdate = null;
+    }
+    async Task InsertRowSafeBox()
+    {
+        SafeBoxToInsert = new SafeBoxDTO();
+        await SafeBoxGrid.InsertRow(SafeBoxToInsert);
+        StateHasChanged();
+    }
+    async void OnCreateRowSafeBox(SafeBoxDTO SafeBox)
+    {
+        try
+        {
+
+            SafeBox.CreateDate = DateTime.Now;
+            SafeBox.CreatedUser = await localStorageService.GetItemAsStringAsync("email");
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            SafeBoxModel = await HttpClient.PostGetServiceResponseAsync<SafeBoxDTO, SafeBoxDTO>("api/safebox/create", SafeBox, token, true);
+            SafeBoxToInsert = null;
+            await SafeBoxGrid.Reload();
+            safeBoxList = await HttpClient.GetServiceResponseAsync<List<SafeBoxDTO>>("api/safebox/safeboxs/", token, true);
+            StateHasChanged();
+
+        }
+        catch (ApiException ex)
+        {
+            await ModalManager.ShowMessageAsync("Api Exception", ex.Message);
+        }
+        catch (Exception ex)
+        {
+
+            await ModalManager.ShowMessageAsync("Exception", ex.Message);
+        }
+
+        // NavigationManager.NavigateTo("/products/edit/"+ProductId);
+    }
+}

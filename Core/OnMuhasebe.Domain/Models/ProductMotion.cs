@@ -15,12 +15,10 @@ namespace OnMuhasebe.Domain.Models
         public Guid ProductId { get; set; }
         public Product? Product { get; set; }
         public decimal Quantity { get; set; }
-
-        public Guid KdvId { get; set; }
-        public Kdv? Kdv { get; set; }
+        public decimal Kdv { get; set; }
         public decimal Price { get; set; }
         public decimal TotalAmount { get; set; }
-        public decimal DiscountRate { get; set; }
+        public decimal? DiscountRate { get; set; }
         public DateTime Date { get; set; }
         public Guid WarehouseId { get; set; }
         public Warehouse? Warehouse { get; set; }

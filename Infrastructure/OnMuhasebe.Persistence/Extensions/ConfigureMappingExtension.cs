@@ -43,8 +43,8 @@ namespace OnMuhasebe.Persistence.Extensions
                 .ForMember(e => e.CustomerGroupName, e => e.MapFrom(e => e.CustomerGroup.CustomerGroupName));
             CreateMap<CustomerDTO, Customer>();
 
-            CreateMap<CustomerGroup, CustomerDTO>();
-            CreateMap<CustomerGroupDTO, CustomerDTO>();
+            CreateMap<CustomerGroup, CustomerGroupDTO>();
+            CreateMap<CustomerGroupDTO, CustomerGroup>();
 
             CreateMap<CustomerUnderGroup, CustomerUnderGroupDTO>()
                 .ForMember(e=>e.CustomerGroupName,e=>e.MapFrom(e=>e.CustomerGroup.CustomerGroupName));
@@ -77,7 +77,7 @@ namespace OnMuhasebe.Persistence.Extensions
             CreateMap<KdvDTO, Kdv>();
 
             CreateMap<PaymentType, PaymentTypeDTO>();
-            CreateMap<PaymentTypeDTO, PaymentTypeDTO>();
+            CreateMap<PaymentTypeDTO, PaymentType>();
 
             CreateMap<Price, PriceDTO>()
                 .ForMember(e=>e.ProductName,e=>e.MapFrom(e=>e.Product.ProductName))
@@ -97,8 +97,6 @@ namespace OnMuhasebe.Persistence.Extensions
             CreateMap<ProductMotion, ProductMotionDTO>()
                 .ForMember(e=>e.ProductName,e=>e.MapFrom(e=>e.Product.ProductName))
                 .ForMember(e=>e.ProductNumber,e=>e.MapFrom(e=>e.Product.ProductNumber))
-                .ForMember(e=>e.KdvName,e=>e.MapFrom(e=>e.Kdv.KdvName))
-                .ForMember(e=>e.KdvRatio,e=>e.MapFrom(e=>e.Kdv.KdvRatio))
                 .ForMember(e=>e.WarehouseName,e=>e.MapFrom(e=>e.Warehouse.WarehouseName))
                 .ForMember(e=>e.WarehouseCode,e=>e.MapFrom(e=>e.Warehouse.WarehouseCode));
             CreateMap<ProductMotionDTO, ProductMotion>();
@@ -132,10 +130,7 @@ namespace OnMuhasebe.Persistence.Extensions
 
             CreateMap<Voucher, VoucherDTO>()
                 .ForMember(e=>e.CustomerName,e=>e.MapFrom(e=>e.Customer.CustomerName))
-                .ForMember(e=>e.CustomerCode,e=>e.MapFrom(e=>e.Customer.CustomerCode))
-                .ForMember(e=>e.AccountCode,e=>e.MapFrom(e=>e.Bank.AccountCode))
-                .ForMember(e=>e.AccountName,e=>e.MapFrom(e=>e.Bank.AccountName))
-                .ForMember(e=>e.IbanNo,e=>e.MapFrom(e=>e.Bank.IbanNo));
+                .ForMember(e=>e.CustomerCode,e=>e.MapFrom(e=>e.Customer.CustomerCode));
             CreateMap<VoucherDTO, Voucher>();
 
             CreateMap<Warehouse, WarehouseDTO>();

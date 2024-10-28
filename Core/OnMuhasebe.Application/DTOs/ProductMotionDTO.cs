@@ -21,9 +21,7 @@ namespace OnMuhasebe.Application.DTOs
         public Guid ProductId { get; set; }
         public string? ProductName { get; set; }
         public string? ProductNumber { get; set; }
-        public Guid KdvId { get; set; }
-        public string? KdvName { get; set; }
-        public decimal? KdvRatio { get; set; }
+        public decimal Kdv { get; set; }
         public Guid WarehouseId { get; set; }
         public string? WarehouseName { get; set; }
         public string? WarehouseCode { get; set; }

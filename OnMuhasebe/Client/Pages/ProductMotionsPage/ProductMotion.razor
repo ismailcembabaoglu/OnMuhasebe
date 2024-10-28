@@ -1,0 +1,69 @@
+﻿@using OnMuhasebe.Application.CustomExceptions
+@using OnMuhasebe.Application.DTOs
+@using OnMuhasebe.Client.Utils
+@inject DialogService dialogService
+@inject NotificationService NotificationService
+<div Class="rz-p-0 rz-p-md-12">
+
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.End" JustifyContent="JustifyContent.Center" Wrap="FlexWrap.Wrap" Gap="1rem" Class="rz-p-sm-12">
+
+        <RadzenFormField Text="Müşteri" Variant="Variant.Filled">
+            <Start>
+                <RadzenIcon Icon="credit_card" />
+            </Start>
+            <ChildContent>
+                <RadzenDropDownDataGrid @bind-Value=@value Data=@customers TextProperty="InvoiceTitle" ValueProperty="Id"
+                                        AllowColumnResize="true" AllowFilteringByAllStringColumns="true" Name="DropDownDataGridColumns">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="CustomerCode" Title="Müşteri Kodu" Width="100px" />
+                        <RadzenDropDownDataGridColumn Property="CustomerName" Title="Müşteri Adı" Width="200px" />
+                        <RadzenDropDownDataGridColumn Property="City" Title="City" Width="100px" />
+                        <RadzenDropDownDataGridColumn Property="Country" Title="Country" Width="100px" />
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            </ChildContent>
+        </RadzenFormField>
+        <RadzenFormField Text="İşlem Tipi" Variant="Variant.Filled">
+            <ChildContent>
+                <RadzenDropDown @bind-Value=@voucherType Data=@voucherTypes Style="width: 100%; max-width: 400px;" Name="DropDownBindValue" />
+            </ChildContent>
+        </RadzenFormField>
+    </RadzenStack>
+</div>
+
+@code {
+    [Inject]
+    public HttpClient Client { get; set; }
+
+    [Inject]
+    ModalManager ModalManager { get; set; }
+
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
+    [Inject]
+    ILocalStorageService localStorageService { get; set; }
+    IEnumerable<CustomerDTO> customers;
+    Guid value;
+    List<string> voucherTypes = new List<string>();
+    string voucherType="Stok Giriş";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            string token = await localStorageService.GetItemAsStringAsync("token");
+            customers = await Client.GetServiceResponseAsync<List<CustomerDTO>>("api/Customer/Customers", token, true);
+            voucherTypes.AddRange(new List<string> { "Stok Giriş", "Stok Çıkış" });
+        }
+        catch   (ApiException ex)
+        {
+            NotificationService.Notify(new NotificationMessage { Style = "position: absolute; left: -1000px;", Severity = NotificationSeverity.Error, Summary = ex.Message, Detail = "Hata", Duration = 40000 });
+        }
+        catch (Exception ex)
+        {
+
+            NotificationService.Notify(new NotificationMessage { Style = "position: absolute; left: -1000px;", Severity = NotificationSeverity.Error, Summary = ex.Message, Detail = "Hata", Duration = 40000 });
+        }
+
+    }
+}

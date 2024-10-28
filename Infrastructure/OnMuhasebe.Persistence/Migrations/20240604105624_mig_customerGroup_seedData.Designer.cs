@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnMuhasebe.Persistence.Context;
@@ -11,9 +12,11 @@ using OnMuhasebe.Persistence.Context;
 namespace OnMuhasebe.Persistence.Migrations
 {
     [DbContext(typeof(OnMuhasebePsqlDbContext))]
-    partial class OnMuhasebePsqlDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240604105624_mig_customerGroup_seedData")]
+    partial class mig_customerGroup_seedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,7 +235,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("e767d4b3-88f7-4af6-932d-431bbfd95c3f"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1151),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8116),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             CustomerGroupName = "Grupsuz"
@@ -455,7 +458,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("a9fd0162-8f72-4d24-accc-1b0c1ec494b4"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1229),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8169),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             KdvName = "%18",
@@ -464,7 +467,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("0924a136-4b38-42eb-ad09-7b92f1303b8a"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1238),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8179),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             KdvName = "%20",
@@ -473,7 +476,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("71cc7301-cae0-4937-a1b3-b7697291a176"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1248),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8187),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             KdvName = "%0",
@@ -589,7 +592,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("3342d171-222f-48bd-901d-17fb7e48d4eb"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1129),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8102),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             ProductGroupName = "Grupsuz"
@@ -603,14 +606,11 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal?>("DiscountRate")
+                    b.Property<decimal>("DiscountRate")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
-                    b.Property<decimal>("Kdv")
-                        .HasColumnType("numeric");
-
-                    b.Property<Guid?>("KdvId")
+                    b.Property<Guid>("KdvId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("MotionType")
@@ -668,7 +668,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("c340b1d5-f2fe-4f0c-9d4f-511f78a8643c"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1170),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8127),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             ProductGroupId = new Guid("3342d171-222f-48bd-901d-17fb7e48d4eb"),
@@ -769,7 +769,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("bd703370-8093-4aa3-9da6-72a1b4a701a5"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1187),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8137),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             UnitName = "ADET"
@@ -777,7 +777,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("80b9d90c-c1bb-41b5-9ff3-2e0ca28d64fa"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1195),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8145),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             UnitName = "KG"
@@ -785,7 +785,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("b08f5c83-252f-4629-9ec0-65eadfe4c0f1"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1203),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8157),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             UnitName = "Paket"
@@ -825,7 +825,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("822e044b-5656-4b44-ad0f-01d7761e2cbe"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1065),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8065),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             Email = "icb1742@gmail.com",
@@ -837,7 +837,7 @@ namespace OnMuhasebe.Persistence.Migrations
                         new
                         {
                             Id = new Guid("c326ee05-4878-4219-958d-ad3caefa4e11"),
-                            CreateDate = new DateTime(2024, 6, 8, 22, 14, 20, 525, DateTimeKind.Utc).AddTicks(1109),
+                            CreateDate = new DateTime(2024, 6, 4, 10, 56, 24, 351, DateTimeKind.Utc).AddTicks(8091),
                             CreatedUser = "Admin",
                             IsDeleted = false,
                             Email = "eagledenizcilik@outlook.com.tr",
@@ -852,21 +852,21 @@ namespace OnMuhasebe.Persistence.Migrations
                 {
                     b.HasBaseType("OnMuhasebe.Domain.Models.BaseModels.BaseModel");
 
-                    b.Property<Guid?>("BankId")
+                    b.Property<Guid>("BankId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
 
-                    b.Property<decimal?>("Debt")
+                    b.Property<decimal>("Debt")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
-                    b.Property<decimal?>("DiscountPrice")
+                    b.Property<decimal>("DiscountPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
-                    b.Property<decimal?>("DiscountRate")
+                    b.Property<decimal>("DiscountRate")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
@@ -878,7 +878,7 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.Property<Guid?>("EmployeeId")
                         .HasColumnType("uuid");
 
-                    b.Property<decimal?>("Owed")
+                    b.Property<decimal>("Owed")
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
@@ -891,9 +891,8 @@ namespace OnMuhasebe.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<string>("VoucherType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("VoucherType")
+                        .HasColumnType("integer");
 
                     b.Property<Guid?>("WarehouseId")
                         .HasColumnType("uuid");
@@ -914,30 +913,37 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasBaseType("OnMuhasebe.Domain.Models.BaseModels.BaseModel");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
                     b.Property<string>("AuthCode")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("AuthName")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("Country")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("District")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
@@ -1076,9 +1082,11 @@ namespace OnMuhasebe.Persistence.Migrations
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.ProductMotion", b =>
                 {
-                    b.HasOne("OnMuhasebe.Domain.Models.Kdv", null)
+                    b.HasOne("OnMuhasebe.Domain.Models.Kdv", "Kdv")
                         .WithMany("ProductMotions")
-                        .HasForeignKey("KdvId");
+                        .HasForeignKey("KdvId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Product", "Product")
                         .WithMany("ProductMotions")
@@ -1091,6 +1099,8 @@ namespace OnMuhasebe.Persistence.Migrations
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Kdv");
 
                     b.Navigation("Product");
 
@@ -1155,9 +1165,11 @@ namespace OnMuhasebe.Persistence.Migrations
 
             modelBuilder.Entity("OnMuhasebe.Domain.Models.Voucher", b =>
                 {
-                    b.HasOne("OnMuhasebe.Domain.Models.Bank", null)
+                    b.HasOne("OnMuhasebe.Domain.Models.Bank", "Bank")
                         .WithMany("Vouchers")
-                        .HasForeignKey("BankId");
+                        .HasForeignKey("BankId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("OnMuhasebe.Domain.Models.Customer", "Customer")
                         .WithMany("Vouchers")
@@ -1172,6 +1184,8 @@ namespace OnMuhasebe.Persistence.Migrations
                     b.HasOne("OnMuhasebe.Domain.Models.Warehouse", null)
                         .WithMany("Vouchers")
                         .HasForeignKey("WarehouseId");
+
+                    b.Navigation("Bank");
 
                     b.Navigation("Customer");
                 });

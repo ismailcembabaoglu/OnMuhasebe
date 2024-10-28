@@ -52,7 +52,7 @@ namespace OnMuhasebe.Persistence.Services
 
         public async Task<VoucherDTO> GetVoucherById(Guid Id)
         {
-            var dbVoucher = await context.Vouchers.Include(c => c.Bank)
+            var dbVoucher = await context.Vouchers
                .Include(c => c.Customer).Where(c => c.Id == Id)
                .ProjectTo<VoucherDTO>(mapper.ConfigurationProvider).FirstOrDefaultAsync();
             if (dbVoucher == null)
@@ -63,14 +63,14 @@ namespace OnMuhasebe.Persistence.Services
         public async Task<List<VoucherDTO>> GetVouchers()
         {
 
-            var dbVoucher = await context.Vouchers.Include(c => c.Bank)
+            var dbVoucher = await context.Vouchers
                .Include(c => c.Customer).ProjectTo<VoucherDTO>(mapper.ConfigurationProvider).ToListAsync();
             return dbVoucher;
         }
 
         public async Task<VoucherDTO> UpdateVoucher(VoucherDTO Voucher)
         {
-            var dbVoucher = await context.Vouchers.Include(c => c.Bank)
+            var dbVoucher = await context.Vouchers
                 .Include(c => c.Customer).Where(c => c.Id == Voucher.Id).FirstOrDefaultAsync();
 
             if (dbVoucher == null)
