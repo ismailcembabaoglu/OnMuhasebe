@@ -31,5 +31,6 @@ namespace OnMuhasebe.Domain.Models
         public ICollection<Price>? Prices { get; set; }//burası ürün eklemede
         public ICollection<ProductMotion>? ProductMotions { get; set; }
         public string? Photo { get; set; }
+        public bool? IsEcommerce { get; set; }
     }
 }

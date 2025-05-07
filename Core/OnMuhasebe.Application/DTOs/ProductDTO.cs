@@ -24,6 +24,7 @@ namespace OnMuhasebe.Application.DTOs
         public string? ProductUnderGroupName { get; set; }
         public Guid UnitId { get; set; }
         public string? UnitName { get; set; }
+        public bool? IsEcommerce { get; set; }
 
     }
 }

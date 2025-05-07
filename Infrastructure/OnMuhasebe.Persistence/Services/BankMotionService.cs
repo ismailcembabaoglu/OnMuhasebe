@@ -75,7 +75,6 @@ namespace OnMuhasebe.Persistence.Services
             if (dbBankMotion == null)
                 throw new Exception("Banka Hareketi Bulunamadığından Dolayı Güncelleme İşlemi Başarısız");
             mapper.Map(BankMotion, dbBankMotion);
-
             int result = await context.SaveChangesAsync();
             return mapper.Map<BankMotionDTO>(dbBankMotion);
         }

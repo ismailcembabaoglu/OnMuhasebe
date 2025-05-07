@@ -11,7 +11,7 @@ namespace OnMuhasebe.Client.Utils
         private readonly AuthenticationState anonymous;
         //private readonly IsbaSatisDbContext context;
 
-        public AuthStateProvider(ILocalStorageService LocalStorageService, HttpClient Client/*IsbaSatisDbContext _context*/)
+        public AuthStateProvider(ILocalStorageService LocalStorageService, HttpClient Client)
         {
             //context = _context;
             localStorageService = LocalStorageService;
